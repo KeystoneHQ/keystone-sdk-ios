@@ -11,16 +11,15 @@ import URKit
 
 
 public class KeystoneSolanaSDK: KeystoneSDK {
-    
+
     public enum SignType: Int32 {
         case Transaction = 1
         case Message = 2
     }
-    
-    
-    func parseSignature(cbor_hex: String) -> Signature? {
-        let sign_result = handle_error(
-            get_result: { parse_sol_signature($0, cbor_hex) },
+
+    func parseSignature(cborHex: String) -> Signature? {
+        let signResult = handle_error(
+            get_result: { parse_sol_signature($0, cborHex) },
             success: { (res: Optional<UnsafePointer<CChar>>) -> String in
                 let val = String(cString: res!)
                 keystone_sdk_destroy_string(res!)
@@ -29,17 +28,12 @@ public class KeystoneSolanaSDK: KeystoneSDK {
         )
 
         let decoder = JSONDecoder()
-        return try? decoder.decode(Signature.self, from: Data(sign_result.utf8))
-        //        do {
-        //            return try decoder.decode(Signature.self, from: Data(sign_result.utf8))
-        //        } catch {
-        //            throw KeystoneError.parseSignatureError("Signature is invalid")
-        //        }
+        return try? decoder.decode(Signature.self, from: Data(signResult.utf8))
     }
 
-    func generateSignRequest(request_id: String, sign_data: String, path: String, xfp: String, address: String?, origin: String?, sign_type: SignType) throws -> UREncoder {
-        let sign_request = handle_error(
-            get_result: { generate_sol_sign_request($0, request_id, sign_data, path, xfp, address, origin, sign_type.rawValue)},
+    func generateSignRequest(requestId: String, signData: String, path: String, xfp: String, address: String?, origin: String?, signType: SignType) throws -> UREncoder {
+        let signRequest = handle_error(
+            get_result: { generate_sol_sign_request($0, requestId, signData, path, xfp, address, origin, signType.rawValue)},
             success: { (res: Optional<UnsafePointer<CChar>>) -> String in
                 let val = String(cString: res!)
                 keystone_sdk_destroy_string(res!)
@@ -48,8 +42,8 @@ public class KeystoneSolanaSDK: KeystoneSDK {
         )
         let decoder = JSONDecoder()
         do {
-            let tx_ur = try decoder.decode(UR.self, from: Data(sign_request.utf8))
-            return try encodeQR(ur: tx_ur)
+            let txUR = try decoder.decode(UR.self, from: Data(signRequest.utf8))
+            return try encodeQR(ur: txUR)
         } catch {
             throw KeystoneError.generateSignRequestError("someeeeee error")
         }

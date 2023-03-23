@@ -9,6 +9,7 @@ import Foundation
 import URRegistryFFI
 import URKit
 
+
 func handle_error<T>(
     get_result: (UnsafeMutablePointer<ExternError>) -> T,
     success: (T) -> String
@@ -26,7 +27,6 @@ func handle_error<T>(
 }
 
 
-//@objc(KeystoneSDK)
 public class KeystoneSDK {
     
     public init(){}
