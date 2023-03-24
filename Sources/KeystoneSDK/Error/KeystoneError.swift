@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeystoneError: Error {
+enum KeystoneError: Swift.Error, Equatable {
     case parseSignatureError(String)
     case generateSignRequestError(String)
 }

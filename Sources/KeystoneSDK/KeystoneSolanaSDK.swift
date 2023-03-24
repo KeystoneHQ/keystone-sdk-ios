@@ -17,7 +17,7 @@ public class KeystoneSolanaSDK: KeystoneSDK {
         case Message = 2
     }
 
-    func parseSignature(cborHex: String) -> Signature? {
+    func parseSignature(cborHex: String) throws -> Signature {
         let signResult = handle_error(
             get_result: { parse_sol_signature($0, cborHex) },
             success: { (res: Optional<UnsafePointer<CChar>>) -> String in
@@ -28,7 +28,12 @@ public class KeystoneSolanaSDK: KeystoneSDK {
         )
 
         let decoder = JSONDecoder()
-        return try? decoder.decode(Signature.self, from: Data(signResult.utf8))
+        do {
+            return try decoder.decode(Signature.self, from: Data(signResult.utf8))
+        } catch {
+            let err = try decoder.decode(Error.self, from: Data(signResult.utf8))
+            throw KeystoneError.parseSignatureError(err.error)
+        }
     }
 
     func generateSignRequest(requestId: String, signData: String, path: String, xfp: String, address: String?, origin: String?, signType: SignType) throws -> UREncoder {
@@ -45,7 +50,8 @@ public class KeystoneSolanaSDK: KeystoneSDK {
             let txUR = try decoder.decode(UR.self, from: Data(signRequest.utf8))
             return try encodeQR(ur: txUR)
         } catch {
-            throw KeystoneError.generateSignRequestError("someeeeee error")
+            let err = try decoder.decode(Error.self, from: Data(signRequest.utf8))
+            throw KeystoneError.generateSignRequestError(err.error)
         }
     }
 }

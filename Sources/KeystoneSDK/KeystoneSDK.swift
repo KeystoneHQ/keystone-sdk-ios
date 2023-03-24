@@ -28,7 +28,6 @@ func handle_error<T>(
 
 
 public class KeystoneSDK {
-    
     public init(){}
     
     func encodeQR(ur: UR) throws -> UREncoder {
