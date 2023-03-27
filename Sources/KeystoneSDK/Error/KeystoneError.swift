@@ -10,5 +10,6 @@ import Foundation
 enum KeystoneError: Swift.Error, Equatable {
     case parseSignatureError(String)
     case generateSignRequestError(String)
-    case parseMultiAccountsError
+    case syncAccountsError(String)
+    case parseQRError(String)
 }

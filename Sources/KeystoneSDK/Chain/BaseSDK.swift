@@ -1,0 +1,72 @@
+//
+//  BaseSDK.swift
+//  
+//
+//  Created by LiYan on 3/27/23.
+//
+
+import Foundation
+import URRegistryFFI
+import URKit
+
+func handle_error(
+    get_result: (UnsafeMutablePointer<ExternError>) -> Optional<UnsafePointer<CChar>>
+) -> String {
+    var err = ExternError()
+    let err_ptr: UnsafeMutablePointer<ExternError> = UnsafeMutablePointer(&err)
+    let res: Optional<UnsafePointer<CChar>> = get_result(err_ptr)
+    if err_ptr.pointee.code == 0 {
+        let responseInJSONStr = String(cString: res!)
+        keystone_sdk_destroy_string(res!)
+        return responseInJSONStr
+    } else {
+        let errorMessage = String(cString: err_ptr.pointee.message)
+        keystone_sdk_destroy_string(err_ptr.pointee.message)
+        return "{\"error\":\"\(errorMessage)\"}"
+    }
+}
+
+extension String {
+    var hexadecimal: Data {
+        var data = Data(capacity: count / 2)
+
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let num = UInt8(byteString, radix: 16)!
+            data.append(num)
+        }
+        guard data.count > 0 else { return Data() }
+        return data
+    }
+}
+
+public class BaseaSDK {
+    public init() {}
+
+    func generateSignRequest(signRequest: String) throws -> UREncoder {
+        let jsonDecoder = JSONDecoder()
+        do {
+            let txUR = try jsonDecoder.decode(UR.self, from: Data(signRequest.utf8))
+            let encodeUR = try URKit.UR(type: txUR.type, cborData: txUR.cbor.hexadecimal)
+            return UREncoder(encodeUR, maxFragmentLen: KeystoneSDK.maxFragment)
+        } catch {
+            let err = try jsonDecoder.decode(Error.self, from: Data(signRequest.utf8))
+            throw KeystoneError.generateSignRequestError(err.error)
+        }
+    }
+
+    func parseUR<T: Codable>(urString: String, ofType type: T.Type, ofError: (String) -> KeystoneError) throws -> T {
+        let jsonDecoder = JSONDecoder()
+        do {
+            return try jsonDecoder.decode(T.self, from: Data(urString.utf8))
+        } catch {
+            let err = try jsonDecoder.decode(Error.self, from: Data(urString.utf8))
+            throw ofError(err.error)
+        }
+    }
+
+    func parseSignature(signResult: String) throws -> Signature {
+        return try parseUR(urString: signResult, ofType: Signature.self, ofError: KeystoneError.parseSignatureError)
+    }
+}

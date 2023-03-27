@@ -9,39 +9,52 @@ import Foundation
 import URRegistryFFI
 import URKit
 
-
-func handle_error<T>(
-    get_result: (UnsafeMutablePointer<ExternError>) -> T,
-    success: (T) -> String
-) -> String {
-    var err = ExternError()
-    let err_ptr: UnsafeMutablePointer<ExternError> = UnsafeMutablePointer(&err)
-    let res = get_result(err_ptr)
-    if err_ptr.pointee.code == 0 {
-        return success(res)
-    } else {
-        let val = String(cString: err_ptr.pointee.message)
-        keystone_sdk_destroy_string(err_ptr.pointee.message)
-        return val
+extension Data {
+    func hexEncodedString() -> String {
+        return map { String(format: "%02hhx", $0) }.joined()
     }
 }
 
 
 public class KeystoneSDK {
-    public let SOL: SolanaSDK
-    public let ETH: EthereumSDK
+    public lazy var sol: SolanaSDK = {
+        return SolanaSDK()
+    }()
+    public lazy var eth: EthereumSDK = {
+        return EthereumSDK()
+    }()
+    private let wallet: KeystoneWallet
+    private var urDecoder: URDecoder
+
+    public static var maxFragment = 100;
 
     public init(){
-        SOL = SolanaSDK()
-        ETH = EthereumSDK()
+        wallet = KeystoneWallet()
+        urDecoder = URDecoder()
     }
-    
-    func encodeQR(ur: UR) throws -> UREncoder {
-        do {
-            let encodeUR = try URKit.UR(type: ur.type, untaggedCBOR: ur.cbor)
-            return UREncoder(encodeUR, maxFragmentLen: 100)
-        } catch {
-            throw KeystoneError.generateSignRequestError("Transaction is not valid")
+
+    public func decodeQR(qrCode: String) throws -> UR? {
+        let _ = urDecoder.receivePart(qrCode)
+        if urDecoder.result != nil {
+            switch urDecoder.result! {
+                case .success(let ur):
+                    let cborHex = ur.cborData.hexEncodedString()
+                    urDecoder = URDecoder()
+                    return UR(type: ur.type, cbor: cborHex)
+                case .failure(let error):
+                    urDecoder = URDecoder()
+                    throw KeystoneError.parseQRError(error.localizedDescription)
+            }
         }
+        return nil
+    }
+
+    public func resetQRDecoder(){
+        urDecoder = URDecoder()
+    }
+
+    // Sync Keystone hardware wallet
+    public func parseMultiAccounts(cborHex: String) throws -> MultiAccounts {
+        return try wallet.parseMultiAccounts(cborHex: cborHex)
     }
 }
