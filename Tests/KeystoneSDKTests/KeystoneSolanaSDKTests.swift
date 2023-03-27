@@ -6,7 +6,7 @@ final class KeystoneSolanaSDKTests: XCTestCase {
     func testParseSignature() {
         let solSignatureHex = "a201d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025840d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f7"
 
-        let keystoneSolSdk = KeystoneSolanaSDK()
+        let keystoneSolSdk = KeystoneSDK().SOL
         let solSignature = try! keystoneSolSdk.parseSignature(cborHex: solSignatureHex)
 
         XCTAssertEqual(solSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -15,7 +15,7 @@ final class KeystoneSolanaSDKTests: XCTestCase {
 
     func testParseSignatureError() {
         let solSignatureHex = "a201d825509b1de"
-        let keystoneSolSdk = KeystoneSolanaSDK()
+        let keystoneSolSdk = KeystoneSDK().SOL
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try keystoneSolSdk.parseSignature(cborHex: solSignatureHex)) {
@@ -33,8 +33,8 @@ final class KeystoneSolanaSDKTests: XCTestCase {
         let address = ""
         let origin = "solflare"
 
-        let keystoneSolSdk = KeystoneSolanaSDK()
-        let solSignRequest = try! keystoneSolSdk.generateSignRequest(requestId: requestId, signData: signData, path: path, xfp: xfp, address: address, origin: origin, signType: KeystoneSolanaSDK.SignType.Message)
+        let keystoneSolSdk = KeystoneSDK().SOL
+        let solSignRequest = try! keystoneSolSdk.generateSignRequest(requestId: requestId, signData: signData, path: path, xfp: xfp, address: address, origin: origin, signType: SolanaSDK.SignType.Message)
 
         let qrCode = solSignRequest.nextPart()
 
@@ -52,7 +52,7 @@ final class KeystoneSolanaSDKTests: XCTestCase {
         let keystoneSolSdk = KeystoneSolanaSDK()
 
         var thrownError: Swift.Error?
-        XCTAssertThrowsError(try keystoneSolSdk.generateSignRequest(requestId: requestId, signData: signData, path: path, xfp: xfp, address: address, origin: origin, signType: KeystoneSolanaSDK.SignType.Message)) {
+        XCTAssertThrowsError(try keystoneSolSdk.generateSignRequest(requestId: requestId, signData: signData, path: path, xfp: xfp, address: address, origin: origin, signType: SolanaSDK.SignType.Message)) {
              thrownError = $0
         }
         XCTAssertEqual(thrownError as? KeystoneError, .generateSignRequestError("uuid is invalid"))

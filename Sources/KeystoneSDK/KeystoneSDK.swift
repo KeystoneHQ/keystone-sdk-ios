@@ -28,7 +28,13 @@ func handle_error<T>(
 
 
 public class KeystoneSDK {
-    public init(){}
+    public let SOL: SolanaSDK
+    public let ETH: EthereumSDK
+
+    public init(){
+        SOL = SolanaSDK()
+        ETH = EthereumSDK()
+    }
     
     func encodeQR(ur: UR) throws -> UREncoder {
         do {
