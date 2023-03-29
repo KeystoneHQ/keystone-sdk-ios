@@ -41,7 +41,7 @@ extension String {
     }
 }
 
-public class BaseaSDK {
+public class BaseSDK {
     public init() {}
 
     func generateSignRequest(signRequest: String) throws -> UREncoder {

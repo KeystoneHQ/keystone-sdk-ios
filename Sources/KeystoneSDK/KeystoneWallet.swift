@@ -8,7 +8,7 @@
 import Foundation
 import URRegistryFFI
 
-public class KeystoneWallet: BaseaSDK {
+public class KeystoneWallet: BaseSDK {
     func parseMultiAccounts(cborHex: String) throws -> MultiAccounts {
         let multiAccounts = handle_error(
             get_result: { parse_crypto_multi_accounts($0, cborHex) }
