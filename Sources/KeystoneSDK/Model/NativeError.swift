@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  NativeError.swift
 //  
 //
 //  Created by LiYan on 3/24/23.

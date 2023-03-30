@@ -10,7 +10,7 @@ import XCTest
 @testable import KeystoneSDK
 
 
-final class EthereumSDKTests: XCTestCase {
+final class KeystoneEthereumSDKTests: XCTestCase {
 
     func testParseSignature() {
         let ethSignatureHex = "a301d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025841d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f71303686b657973746f6e65"
@@ -36,11 +36,11 @@ final class EthereumSDKTests: XCTestCase {
 
     func testGenerateSignRequest() {
         let ethSignRequest = EthSignRequest(
-            requestId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-            signData: "f849808609184e72a00082271094000000000000000000000000000000000000000080a47f7465737432000000000000000000000000000000000000000000000000000000600057808080",
-            dataType: .message,
+            requestId: "6c3633c0-02c0-4313-9cd7-e25f4f296729",
+            signData: "6578616d706c652060706572736f6e616c5f7369676e60206d657373616765",
+            dataType: .personalMessage,
             chainId: 1,
-            path: "m/44'/1'/1'/0/1",
+            path: "m/44'/60'/0'/0/0",
             xfp: "12345678",
             origin: "metamask"
         )
@@ -50,14 +50,14 @@ final class EthereumSDKTests: XCTestCase {
 
         let qrCode = ethSignRequestEncoder.nextPart()
 
-        XCTAssertEqual(qrCode, "ur:eth-sign-request/1-3/lpadaxcfadbzcypdvljorohdhlkkadbghsendyehieeteyececdyesidehieihideeieeoidemieeeidhsieesidieieeyiddyieemideoieiaideniedyeyeceteeidiyeteeesetdyetendyeseheteeihemeyhsdydydyeteyeyemehdyeseedydydydydydydydydydydydydydytltlfnjt")
+        XCTAssertEqual(qrCode, "ur:eth-sign-request/oladtpdagdjzeneortaortfxbwnstsvohegwdtiodtaohdctihkshsjnjojzihcxhnjoihjpjkjljthsjzhejkiniojthncxjnihjkjkhsioihaxaxaaadahtaaddyoeadlecsdwykcsfnykaeykaewkaewkaocybgeehfksatisjnihjyhsjnhsjkjehgadcese")
     }
 
     func testGenerateSignRequestError() {
         let ethSignRequest = EthSignRequest(
-            requestId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-            signData: "f849808609184e72a00082271094000000000000000000000000000000000000000080a47f7465737432000000000000000000000000000000000000000000000000000000600057808080",
-            dataType: .message,
+            requestId: "6c3633c0-02c0-4313-9cd7-e25f4f296729",
+            signData: "6578616d706c652060706572736f6e616c5f7369676e60206d657373616765",
+            dataType: .personalMessage,
             chainId: 1,
             path: "",
             xfp: "12345678",

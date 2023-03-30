@@ -2,7 +2,7 @@ import XCTest
 @testable import KeystoneSDK
 
 
-final class SolanaSDKTests: XCTestCase {
+final class KeystoneSolanaSDKTests: XCTestCase {
 
     func testParseSignature() {
         let solSignatureHex = "a201d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025840d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f7"
@@ -41,7 +41,7 @@ final class SolanaSDKTests: XCTestCase {
 
         let qrCode = solSignRequestEncoder.nextPart()
 
-        XCTAssertEqual(qrCode, "ur:sol-sign-request/1-5/lpadahcfadoscyzortlylkhdgokkadoxhsecdyehieeteyececdyesidehieihideeieeoidemieeeidhsieesidieieeyiddyieemideoieiaideniedyeyecetesendyehdydydyehdyeoiaetieeteeeyhseyiyehemiyieemhshsidendyetiaiheyihhsecghsrdebe")
+        XCTAssertEqual(qrCode, "ur:sol-sign-request/1-3/lpadaxcstdcydssrgsaohdfgonadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdmtadaeadaxsptpfwoewnlbtspkrpaytodmonecolwlhdurzscxsgyninqdflrhbysschcfihgubsmdkocxprderdvorhgsskmewtsn")
     }
 
     func testGenerateSignRequestError() {
