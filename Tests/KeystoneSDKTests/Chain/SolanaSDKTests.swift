@@ -7,7 +7,7 @@ final class SolanaSDKTests: XCTestCase {
     func testParseSignature() {
         let solSignatureHex = "a201d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025840d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f7"
 
-        let solanaSdk = SolanaSDK()
+        let solanaSdk = KeystoneSolanaSDK()
         let solSignature = try! solanaSdk.parseSignature(cborHex: solSignatureHex)
 
         XCTAssertEqual(solSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -16,7 +16,7 @@ final class SolanaSDKTests: XCTestCase {
 
     func testParseSignatureError() {
         let solSignatureHex = "a201d825509b1de"
-        let solanaSdk = SolanaSDK()
+        let solanaSdk = KeystoneSolanaSDK()
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try solanaSdk.parseSignature(cborHex: solSignatureHex)) {
@@ -36,7 +36,7 @@ final class SolanaSDKTests: XCTestCase {
             origin: "solflare"
         )
 
-        let solanaSdk = SolanaSDK()
+        let solanaSdk = KeystoneSolanaSDK()
         let solSignRequestEncoder = try! solanaSdk.generateSignRequest(solSignRequest: solSignRequest)
 
         let qrCode = solSignRequestEncoder.nextPart()
@@ -54,7 +54,7 @@ final class SolanaSDKTests: XCTestCase {
             origin: "solflare"
         )
 
-        let solanaSdk = SolanaSDK()
+        let solanaSdk = KeystoneSolanaSDK()
 
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try solanaSdk.generateSignRequest(solSignRequest: solSignRequest)) {

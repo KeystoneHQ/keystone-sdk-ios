@@ -19,7 +19,9 @@ public struct EthSignRequest {
 
     public enum DataType: Int32 {
         case transaction = 1
-        case message = 2
+        case typedData = 2
+        case personalMessage = 3
+        case typedTransaction = 4
     }
 
     public init(requestId: String, signData: String, dataType: DataType, chainId: Int32, path: String, xfp: String, address: String = "", origin: String = "") {

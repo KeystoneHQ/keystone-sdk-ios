@@ -10,7 +10,7 @@ import URRegistryFFI
 import URKit
 
 
-public class SolanaSDK: BaseSDK {
+public class KeystoneSolanaSDK: KeystoneBaseSDK {
 
     public func parseSignature(cborHex: String) throws -> Signature {
         let signResult = handle_error(

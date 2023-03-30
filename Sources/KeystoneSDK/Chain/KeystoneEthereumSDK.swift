@@ -10,7 +10,7 @@ import URRegistryFFI
 import URKit
 
 
-public class EthereumSDK: BaseSDK {
+public class KeystoneEthereumSDK: KeystoneBaseSDK {
     public func parseSignature(cborHex: String) throws -> Signature {
         let signResult = handle_error(
             get_result: { parse_eth_signature($0, cborHex) }

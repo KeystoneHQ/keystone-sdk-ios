@@ -41,7 +41,7 @@ extension String {
     }
 }
 
-public class BaseSDK {
+public class KeystoneBaseSDK {
     public init() {}
 
     func generateSignRequest(signRequest: String) throws -> UREncoder {
@@ -51,8 +51,13 @@ public class BaseSDK {
             let encodeUR = try URKit.UR(type: txUR.type, cborData: txUR.cbor.hexadecimal)
             return UREncoder(encodeUR, maxFragmentLen: KeystoneSDK.maxFragment)
         } catch {
-            let err = try jsonDecoder.decode(Error.self, from: Data(signRequest.utf8))
-            throw KeystoneError.generateSignRequestError(err.error)
+            do {
+                let jsonDecoder = JSONDecoder()
+                let err = try jsonDecoder.decode(NativeError.self, from: Data(signRequest.utf8))
+                throw KeystoneError.generateSignRequestError(err.error)
+            } catch {
+                throw KeystoneError.internalError
+            }
         }
     }
 
@@ -61,8 +66,12 @@ public class BaseSDK {
         do {
             return try jsonDecoder.decode(T.self, from: Data(urString.utf8))
         } catch {
-            let err = try jsonDecoder.decode(Error.self, from: Data(urString.utf8))
-            throw ofError(err.error)
+            do {
+                let err = try jsonDecoder.decode(NativeError.self, from: Data(urString.utf8))
+                throw ofError(err.error)
+            } catch {
+                throw KeystoneError.internalError
+            }
         }
     }
 

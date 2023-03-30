@@ -15,7 +15,7 @@ final class EthereumSDKTests: XCTestCase {
     func testParseSignature() {
         let ethSignatureHex = "a301d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025841d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f71303686b657973746f6e65"
 
-        let ethereumSdk = EthereumSDK()
+        let ethereumSdk = KeystoneEthereumSDK()
         let ethSignature = try! ethereumSdk.parseSignature(cborHex: ethSignatureHex)
 
         XCTAssertEqual(ethSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -24,7 +24,7 @@ final class EthereumSDKTests: XCTestCase {
 
     func testParseSignatureError() {
         let ethSignatureHex = "a201d825509b1de"
-        let ethereumSdk = EthereumSDK()
+        let ethereumSdk = KeystoneEthereumSDK()
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try ethereumSdk.parseSignature(cborHex: ethSignatureHex)) {
@@ -45,7 +45,7 @@ final class EthereumSDKTests: XCTestCase {
             origin: "metamask"
         )
 
-        let ethereumSdk = EthereumSDK()
+        let ethereumSdk = KeystoneEthereumSDK()
         let ethSignRequestEncoder = try! ethereumSdk.generateSignRequest(ethSignRequest: ethSignRequest)
 
         let qrCode = ethSignRequestEncoder.nextPart()
@@ -64,7 +64,7 @@ final class EthereumSDKTests: XCTestCase {
             origin: "metamask"
         )
 
-        let ethereumSdk = EthereumSDK()
+        let ethereumSdk = KeystoneEthereumSDK()
 
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try ethereumSdk.generateSignRequest(ethSignRequest: ethSignRequest)) {

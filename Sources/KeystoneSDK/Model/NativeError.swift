@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct Error : Equatable, Codable {
+public struct NativeError : Equatable, Codable {
     public var error: String
 }
