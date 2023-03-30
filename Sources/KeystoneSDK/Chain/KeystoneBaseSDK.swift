@@ -44,18 +44,17 @@ extension String {
 public class KeystoneBaseSDK {
     public init() {}
 
-    func generateSignRequest(signRequest: String) throws -> UREncoder {
+    func urStringToEncoder(urString: String, ofError: (String) -> KeystoneError) throws -> UREncoder {
         let jsonDecoder = JSONDecoder()
         do {
-            let txUR = try jsonDecoder.decode(UR.self, from: Data(signRequest.utf8))
+            let txUR = try jsonDecoder.decode(UR.self, from: Data(urString.utf8))
             let encodeUR = try URKit.UR(type: txUR.type, cborData: txUR.cbor.hexadecimal)
             return UREncoder(encodeUR, maxFragmentLen: KeystoneSDK.maxFragment)
         } catch {
             do {
-                let jsonDecoder = JSONDecoder()
-                let err = try jsonDecoder.decode(NativeError.self, from: Data(signRequest.utf8))
-                throw KeystoneError.generateSignRequestError(err.error)
-            } catch {
+                let err = try jsonDecoder.decode(NativeError.self, from: Data(urString.utf8))
+                throw ofError(err.error)
+            } catch DecodingError.dataCorrupted {
                 throw KeystoneError.internalError
             }
         }
@@ -69,7 +68,7 @@ public class KeystoneBaseSDK {
             do {
                 let err = try jsonDecoder.decode(NativeError.self, from: Data(urString.utf8))
                 throw ofError(err.error)
-            } catch {
+            } catch DecodingError.dataCorrupted {
                 throw KeystoneError.internalError
             }
         }
@@ -77,5 +76,9 @@ public class KeystoneBaseSDK {
 
     func parseSignature(signResult: String) throws -> Signature {
         return try parseUR(urString: signResult, ofType: Signature.self, ofError: KeystoneError.parseSignatureError)
+    }
+
+    func generateSignRequest(signRequest: String) throws -> UREncoder {
+        return try urStringToEncoder(urString: signRequest, ofError: KeystoneError.generateSignRequestError)
     }
 }

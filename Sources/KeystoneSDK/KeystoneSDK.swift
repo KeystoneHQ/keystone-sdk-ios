@@ -23,6 +23,9 @@ public class KeystoneSDK {
     public lazy var eth: KeystoneEthereumSDK = {
         return KeystoneEthereumSDK()
     }()
+    public lazy var btc: KeystoneBitcoinSDK = {
+        return KeystoneBitcoinSDK()
+    }()
     private let wallet: KeystoneWallet = KeystoneWallet()
     private var urDecoder: URDecoder = URDecoder()
 
