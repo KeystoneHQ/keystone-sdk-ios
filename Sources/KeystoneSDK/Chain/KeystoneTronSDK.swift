@@ -1,0 +1,30 @@
+//
+//  KeystoneTronSDK.swift
+//  
+//
+//  Created by LiYan on 4/12/23.
+//
+
+import Foundation
+import URRegistryFFI
+import URKit
+
+
+public class KeystoneTronSDK: KeystoneBaseSDK {
+
+    public func parseSignature(cborHex: String) throws -> Signature {
+        let signResult = handle_error(
+            get_result: { parse_tron_signature($0, cborHex) }
+        )
+        return try super.parseSignature(signResult: signResult)
+    }
+
+    public func generateSignRequest(tronSignRequest: TronSignRequest) throws -> UREncoder {
+        let tokenInfoData = try JSONEncoder().encode(tronSignRequest.tokenInfo)
+        let tokenInfo = String(data: tokenInfoData, encoding: .utf8)
+        let signRequest = handle_error(
+            get_result: { generate_tron_sign_request($0, tronSignRequest.requestId, tronSignRequest.signData, tronSignRequest.path, tronSignRequest.xfp, tokenInfo, tronSignRequest.address, tronSignRequest.origin)}
+        )
+        return try super.generateSignRequest(signRequest: signRequest)
+    }
+}
