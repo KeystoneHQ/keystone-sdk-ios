@@ -29,6 +29,10 @@ public class KeystoneSDK {
     public lazy var cosmos: KeystoneCosmosSDK = {
        return KeystoneCosmosSDK()
     }()
+    public lazy var tron: KeystoneTronSDK = {
+       return KeystoneTronSDK()
+    }()
+
     private let wallet: KeystoneWallet = KeystoneWallet()
     private var urDecoder: URDecoder = URDecoder()
 
