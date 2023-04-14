@@ -12,9 +12,9 @@ import URKit
 
 public class KeystoneCosmosSDK: KeystoneBaseSDK {
 
-    public func parseSignature(cborHex: String) throws -> CosmosSignature {
+    public func parseSignature(ur: UR) throws -> CosmosSignature {
         let signResult = handle_error(
-            get_result: { parse_cosmos_signature($0, cborHex) }
+            get_result: { parse_cosmos_signature($0, ur.type, ur.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: CosmosSignature.self, ofError: KeystoneError.parseSignatureError)
     }
