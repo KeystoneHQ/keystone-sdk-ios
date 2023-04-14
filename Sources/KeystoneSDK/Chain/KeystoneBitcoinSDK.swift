@@ -10,9 +10,9 @@ import URRegistryFFI
 import URKit
 
 public class KeystoneBitcoinSDK: KeystoneBaseSDK {
-    public func parsePSBT(cborHex: String) throws -> Data {
+    public func parsePSBT(ur: UR) throws -> Data {
         let psbtURString = handle_error(
-            get_result: { parse_crypto_psbt($0, cborHex) }
+            get_result: { parse_crypto_psbt($0, ur.type, ur.cborData.hexEncodedString()) }
         )
 
         let psbt = try super.parseUR(urString: psbtURString, ofType: PSBT.self, ofError: KeystoneError.parsePSBTError)

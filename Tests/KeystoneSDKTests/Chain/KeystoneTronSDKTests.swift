@@ -9,6 +9,7 @@ import Foundation
 
 import Foundation
 import XCTest
+import URKit
 @testable import KeystoneSDK
 
 
@@ -18,7 +19,8 @@ final class KeystoneTronSDKTests: XCTestCase {
         let tronSignatureHex = "a201d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d02584147b1f77b3e30cfbbfa41d795dd34475865240617dd1c5a7bad526f5fd89e52cd057c80b665cc2431efab53520e2b1b92a0425033baee915df858ca1c588b0a1800"
 
         let tronSdk = KeystoneTronSDK()
-        let tronSignature = try! tronSdk.parseSignature(cborHex: tronSignatureHex)
+        let ur = try! UR(type: "tron-signature", cborData: tronSignatureHex.hexadecimal)
+        let tronSignature = try! tronSdk.parseSignature(ur: ur)
 
         XCTAssertEqual(tronSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
         XCTAssertEqual(tronSignature.signature, "47b1f77b3e30cfbbfa41d795dd34475865240617dd1c5a7bad526f5fd89e52cd057c80b665cc2431efab53520e2b1b92a0425033baee915df858ca1c588b0a1800")
@@ -56,6 +58,6 @@ final class KeystoneTronSDKTests: XCTestCase {
         
         let qrCode = tronSignRequestEncoder.nextPart()
 
-        XCTAssertEqual(qrCode, "ur:tron-sign-request/1-2/lpadaocfadrtcygakkdwnlhdvtotadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohkadmhkgcpiajljtjyjphsiajyfpieiejpihjkjkcpftcpghfwfpjlemgdglkkgrjleseehkhggojsehfxjkeygsfwfgksjeisghjoisjtfpfeeeghcpdwcpiyihihcpftehdydydydydydydydydydwcpiyjpjljncpftcpghgofpiskskteogtiogtkkgmesjpiskkjpgtfyjthfgeidjleoidjekkehflgugojpfdcpdwcpjzhsjyihjkjyfwjzjliajecpftkgcpishsjkiscpftcpdydydydydydydydydydydydydydydydyihehidesieihececeseneneciaenemehdydydydydydydydydydydydydydydydydydydydydydydydydydydydrdsltde")
+        XCTAssertEqual(qrCode, "ur:tron-sign-request/1-2/lpadaocfadrfcybsrpdpdlhdueotadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohkadlkkgcpiajljtjyjphsiajyfpieiejpihjkjkcpftcpghfwfpjlemgdglkkgrjleseehkhggojsehfxjkeygsfwfgksjeisghjoisjtfpfeeeghcpdwcpiyihihcpftehdydydydydydydydydydwcpiyjpjljncpftcpghgofpiskskteogtiogtkkgmesjpiskkjpgtfyjthfgeidjleoidjekkehflgugojpfdcpdwcpjzhsjyihjkjyfwjzjliajecpftkgcpishsjkiscpftcpdydydydydydydydydydydydydydydydyihehidesieihececeseneneciaenemehdydydydydydydydydydydydydydydydydydydydydydydydydyssastyst")
     }
 }

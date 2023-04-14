@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import URKit
 @testable import KeystoneSDK
 
 
@@ -15,7 +16,8 @@ final class KeystoneWalletTests: XCTestCase {
         let multiAccountsCBORHex = "a3011aa424853c0281d9012fa4035821034af544244d31619d773521a1a366373c485ff89de50bea543c2b14cccfbb6a500458208dc2427d8ab23caab07729f88f089a3cfa2cfffcd7d1e507f983c0d44a5dbd3506d90130a10186182cf500f500f5081a149439dc03686b657973746f6e65"
         
         let keystoneWallet = KeystoneWallet()
-        let multiAccounts = try! keystoneWallet.parseMultiAccounts(cborHex: multiAccountsCBORHex)
+        let ur = try! UR(type: "crypto-multi-accounts", cborData: multiAccountsCBORHex.hexadecimal)
+        let multiAccounts = try! keystoneWallet.parseMultiAccounts(ur: ur)
         let firstHDKey = multiAccounts.keys[0]
 
         XCTAssertEqual(multiAccounts.device, "keystone")
@@ -31,7 +33,8 @@ final class KeystoneWalletTests: XCTestCase {
         let multiAccountsCBORHex = "a3011ae9181cf30281d9012fa203582102eae4b876a8696134b868f88cc2f51f715f2dbedb7446b8e6edf3d4541c4eb67b06d90130a10188182cf51901f5f500f500f503686b657973746f6e65"
         
         let keystoneWallet = KeystoneWallet()
-        let multiAccounts = try! keystoneWallet.parseMultiAccounts(cborHex: multiAccountsCBORHex)
+        let ur = try! UR(type: "crypto-multi-accounts", cborData: multiAccountsCBORHex.hexadecimal)
+        let multiAccounts = try! keystoneWallet.parseMultiAccounts(ur: ur)
         let firstHDKey = multiAccounts.keys[0]
 
         XCTAssertEqual(multiAccounts.device, "keystone")
@@ -46,9 +49,10 @@ final class KeystoneWalletTests: XCTestCase {
     func testParseMultiAccountsError() {
         let multiAccountsCBORHex = "a3011ae9181cf30281d9012fa203582102eae4b876a8696134b868f88cc2f51f715f2dbe"
         let keystoneWallet = KeystoneWallet()
+        let ur = try! UR(type: "crypto-multi-accounts", cborData: multiAccountsCBORHex.hexadecimal)
 
         var thrownError: Swift.Error?
-        XCTAssertThrowsError(try keystoneWallet.parseMultiAccounts(cborHex: multiAccountsCBORHex)) {
+        XCTAssertThrowsError(try keystoneWallet.parseMultiAccounts(ur: ur)) {
              thrownError = $0
         }
         XCTAssertEqual(thrownError as? KeystoneError, .syncAccountsError("crypto multi accounts is invalid"))

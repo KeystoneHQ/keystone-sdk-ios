@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct UR : Equatable, Codable {
+public struct NativeUR : Equatable, Codable {
     public var type: String
     public var cbor: String
 }

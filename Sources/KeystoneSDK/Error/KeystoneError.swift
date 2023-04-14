@@ -22,15 +22,15 @@ extension KeystoneError: LocalizedError {
             case .internalError:
                 return NSLocalizedString("internalError", comment: "Keystone SDK internal Error")
             case .syncAccountsError(let reason):
-                return NSLocalizedString("syncAccountsError", comment: reason)
+                return NSLocalizedString("InvalidAccounts(\(reason))", comment: "InvalidAccounts")
             case .parseSignatureError(let reason):
-                return NSLocalizedString("parseSignatureError", comment: reason)
-            case .generateSignRequestError(let reason):
-                return NSLocalizedString("generateSignRequestError", comment: reason)
+                return NSLocalizedString("InvalidSignature(\(reason))", comment: "InvalidSignature")
             case .parsePSBTError(let reason):
-                return NSLocalizedString("parsePSBTError", comment: reason)
+                return NSLocalizedString("InvalidPSBT(\(reason))", comment: "InvalidPSBT")
+            case .generateSignRequestError(let reason):
+                return NSLocalizedString("SignRequestError(\(reason))", comment: "SignRequestError")
             case .generatePSBTError(let reason):
-                return NSLocalizedString("internalError", comment: reason)
+                return NSLocalizedString("PSBTError(\(reason))", comment: "PSBTError")
         }
     }
 }

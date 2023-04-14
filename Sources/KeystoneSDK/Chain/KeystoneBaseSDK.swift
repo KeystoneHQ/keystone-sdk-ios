@@ -47,7 +47,7 @@ public class KeystoneBaseSDK {
     func urStringToEncoder(urString: String, ofError: (String) -> KeystoneError) throws -> UREncoder {
         let jsonDecoder = JSONDecoder()
         do {
-            let txUR = try jsonDecoder.decode(UR.self, from: Data(urString.utf8))
+            let txUR = try jsonDecoder.decode(NativeUR.self, from: Data(urString.utf8))
             let encodeUR = try URKit.UR(type: txUR.type, cborData: txUR.cbor.hexadecimal)
             return UREncoder(encodeUR, maxFragmentLen: KeystoneSDK.maxFragmentLen)
         } catch {
@@ -67,7 +67,11 @@ public class KeystoneBaseSDK {
         } catch {
             do {
                 let err = try jsonDecoder.decode(NativeError.self, from: Data(urString.utf8))
-                throw ofError(err.error)
+                if err.error == "type not match" {
+                    throw QRCodeError.unexpectedQRCode
+                } else {
+                    throw ofError(err.error)
+                }
             } catch DecodingError.dataCorrupted {
                 throw KeystoneError.internalError
             }

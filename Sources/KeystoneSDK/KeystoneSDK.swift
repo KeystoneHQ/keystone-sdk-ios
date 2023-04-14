@@ -44,8 +44,7 @@ public class KeystoneSDK {
         let isReceiveSucceed = urDecoder.receivePart(qrCode)
         switch urDecoder.result {
             case .success(let ur):
-                let cborHex = ur.cborData.hexEncodedString()
-                return UR(type: ur.type, cbor: cborHex)
+                return ur
             case .failure:
                 resetQRDecoder()
                 throw QRCodeError.invalidQRCode
@@ -64,7 +63,7 @@ public class KeystoneSDK {
     }
 
     // Sync Keystone hardware wallet
-    public func parseMultiAccounts(cborHex: String) throws -> MultiAccounts {
-        return try wallet.parseMultiAccounts(cborHex: cborHex)
+    public func parseMultiAccounts(ur: UR) throws -> MultiAccounts {
+        return try wallet.parseMultiAccounts(ur: ur)
     }
 }
