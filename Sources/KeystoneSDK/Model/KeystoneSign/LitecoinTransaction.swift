@@ -1,5 +1,5 @@
 //
-//  LitecoinSignRequest.swift
+//  LitecoinTransaction.swift
 //  
 //
 //  Created by LiYan on 4/21/23.
@@ -32,7 +32,7 @@ public struct LitecoinTransaction: Codable {
             let script: String
             let value: Int64
 
-            public init(publicKey: String, script: String, value: Int64) {
+            public init(publicKey: String, script: String = "", value: Int64) {
                 self.publicKey = publicKey
                 self.script = script
                 self.value = value
@@ -40,7 +40,7 @@ public struct LitecoinTransaction: Codable {
         }
     }
 
-    public init(fee: Int64, dustThreshold: Int32, memo: String = "", inputs: [LitecoinTransaction.Input], outputs: [Output]) {
+    public init(fee: Int64, dustThreshold: Int32 = 5460, memo: String = "", inputs: [LitecoinTransaction.Input], outputs: [Output]) {
         self.fee = fee
         self.dustThreshold = dustThreshold
         self.memo = memo
