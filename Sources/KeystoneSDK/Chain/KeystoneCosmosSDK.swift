@@ -20,7 +20,6 @@ public class KeystoneCosmosSDK: KeystoneBaseSDK {
     }
 
     public func generateSignRequest(cosmosSignRequest: CosmosSignRequest) throws -> UREncoder {
-        let jsonEncoder = JSONEncoder()
         let accountsJson = String(data: try jsonEncoder.encode(cosmosSignRequest.accounts), encoding: .utf8)
         let signRequest = handle_error(
             get_result: { generate_cosmos_sign_request($0, cosmosSignRequest.requestId, cosmosSignRequest.signData, cosmosSignRequest.dataType.rawValue, accountsJson, cosmosSignRequest.origin) }

@@ -42,10 +42,17 @@ extension String {
 }
 
 public class KeystoneBaseSDK {
-    public init() {}
+    let jsonDecoder: JSONDecoder
+    let jsonEncoder: JSONEncoder
+
+    public init() {
+        jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+        jsonEncoder = JSONEncoder()
+        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
+    }
 
     func urStringToEncoder(urString: String, ofError: (String) -> KeystoneError) throws -> UREncoder {
-        let jsonDecoder = JSONDecoder()
         do {
             let txUR = try jsonDecoder.decode(NativeUR.self, from: Data(urString.utf8))
             let encodeUR = try URKit.UR(type: txUR.type, cborData: txUR.cbor.hexadecimal)
@@ -61,7 +68,6 @@ public class KeystoneBaseSDK {
     }
 
     func parseUR<T: Codable>(urString: String, ofType type: T.Type, ofError: (String) -> KeystoneError) throws -> T {
-        let jsonDecoder = JSONDecoder()
         do {
             return try jsonDecoder.decode(T.self, from: Data(urString.utf8))
         } catch {
