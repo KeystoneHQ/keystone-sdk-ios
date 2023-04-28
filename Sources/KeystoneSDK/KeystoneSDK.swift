@@ -47,6 +47,9 @@ public class KeystoneSDK {
     public lazy var near: KeystoneNearSDK = {
         return KeystoneNearSDK()
     }()
+    public lazy var arweave: KeystoneArweaveSDK = {
+        return KeystoneArweaveSDK()
+    }()
 
 
     private let wallet: KeystoneWallet = KeystoneWallet()
