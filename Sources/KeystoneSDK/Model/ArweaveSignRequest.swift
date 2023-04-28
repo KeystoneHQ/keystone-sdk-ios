@@ -29,6 +29,7 @@ public struct ArweaveSignRequest {
     public enum SignType: Int32 {
         case transaction = 1
         case dataItem = 2
+        case message = 3
     }
 
     public enum SaltLen: Int32 {
