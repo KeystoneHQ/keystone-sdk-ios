@@ -13,7 +13,6 @@ public struct TronSignRequest {
     let path: String
     let xfp: String
     var tokenInfo: TokenInfo?
-    var address: String
     var origin: String
 
     public init(requestId: String, signData: String, path: String, xfp: String, tokenInfo: TokenInfo? = nil, address: String = "", origin: String = "") {
@@ -22,7 +21,6 @@ public struct TronSignRequest {
         self.path = path
         self.xfp = xfp
         self.tokenInfo = tokenInfo
-        self.address = address
         self.origin = origin
     }
 }
