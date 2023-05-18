@@ -23,7 +23,7 @@ public class KeystoneTronSDK: KeystoneBaseSDK {
         let tokenInfoData = try JSONEncoder().encode(tronSignRequest.tokenInfo)
         let tokenInfo = String(data: tokenInfoData, encoding: .utf8)
         let signRequest = handle_error(
-            get_result: { generate_tron_sign_request($0, tronSignRequest.requestId, tronSignRequest.signData, tronSignRequest.path, tronSignRequest.xfp, tokenInfo, tronSignRequest.address, tronSignRequest.origin)}
+            get_result: { generate_tron_sign_request($0, tronSignRequest.requestId, tronSignRequest.signData, tronSignRequest.path, tronSignRequest.xfp, tokenInfo, tronSignRequest.origin, Date.currentTimestamp())}
         )
         return try super.generateSignRequest(signRequest: signRequest)
     }
