@@ -20,7 +20,6 @@ public class KeystoneAptosSDK: KeystoneBaseSDK {
     }
 
     public func generateSignRequest(aptosSignRequest: AptosSignRequest) throws -> UREncoder {
-        let jsonEncoder = JSONEncoder()
         let accountsJson = String(data: try jsonEncoder.encode(aptosSignRequest.accounts), encoding: .utf8)
         let signRequest = handle_error(
             get_result: { generate_aptos_sign_request($0, aptosSignRequest.requestId, aptosSignRequest.signData, accountsJson, aptosSignRequest.origin, aptosSignRequest.signType.rawValue)}

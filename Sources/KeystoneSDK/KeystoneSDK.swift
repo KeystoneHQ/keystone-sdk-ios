@@ -50,6 +50,9 @@ public class KeystoneSDK {
     public lazy var arweave: KeystoneArweaveSDK = {
         return KeystoneArweaveSDK()
     }()
+    public lazy var sui: KeystoneSuiSDK = {
+        return KeystoneSuiSDK()
+    }()
 
 
     private let wallet: KeystoneWallet = KeystoneWallet()
