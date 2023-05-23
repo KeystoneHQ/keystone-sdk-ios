@@ -53,6 +53,9 @@ public class KeystoneSDK {
     public lazy var sui: KeystoneSuiSDK = {
         return KeystoneSuiSDK()
     }()
+    public lazy var cardano: KeystoneCardanoSDK = {
+        return KeystoneCardanoSDK()
+    }()
 
 
     private let wallet: KeystoneWallet = KeystoneWallet()
