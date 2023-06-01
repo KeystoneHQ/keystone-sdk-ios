@@ -65,17 +65,18 @@ public class KeystoneSDK {
 
     public init(){}
 
-    public func decodeQR(qrCode: String) throws -> UR? {
+    public func decodeQR(qrCode: String) throws -> DecodeResult {
         let isReceiveSucceed = urDecoder.receivePart(qrCode)
         switch urDecoder.result {
             case .success(let ur):
-                return ur
+                return DecodeResult(progress: 100, ur: ur)
             case .failure:
                 resetQRDecoder()
                 throw QRCodeError.invalidQRCode
             case nil:
                 if isReceiveSucceed {
-                    return nil
+                    let progress = Int(urDecoder.estimatedPercentComplete * 100)
+                    return DecodeResult(progress: progress)
                 } else {
                     resetQRDecoder()
                     throw QRCodeError.unexpectedQRCode
