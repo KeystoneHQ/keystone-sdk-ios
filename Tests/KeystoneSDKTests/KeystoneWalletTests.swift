@@ -22,12 +22,24 @@ final class KeystoneWalletTests: XCTestCase {
 
         XCTAssertEqual(multiAccounts.device, "keystone")
         XCTAssertEqual(multiAccounts.masterFingerprint, "a424853c")
+        XCTAssertEqual(multiAccounts.deviceId, nil)
 
         XCTAssertEqual(firstHDKey.chain, "BTC")
         XCTAssertEqual(firstHDKey.path, "m/44'/0'/0'")
         XCTAssertEqual(firstHDKey.publicKey, "034af544244d31619d773521a1a366373c485ff89de50bea543c2b14cccfbb6a50")
         XCTAssertEqual(firstHDKey.extendedPublicKey, "xpub6BoYPFH1MivLdh2BWZuRu6LfuaVSkVak5wsDxjjkAWcUM2QPKyeCHXMgDfRJFvKZhqA4vM5vsgcD6C5ot9eThnFHstgPntNzBLUdLeKS7Zt")
         XCTAssertEqual(firstHDKey.extra.okx.chainId, 0)
+    }
+
+    func testParseMultiAccountsWithDeviceId() {
+        let multiAccountsCBORHex = "a4011ae9181cf30281d9012fa203582102eae4b876a8696134b868f88cc2f51f715f2dbedb7446b8e6edf3d4541c4eb67b06d90130a10188182cf51901f5f500f500f503686b657973746f6e6504782832383437356338643830663663303662616662653436613764313735306633666366323536356637"
+
+        let keystoneWallet = KeystoneWallet()
+        let ur = try! UR(type: "crypto-multi-accounts", cborData: multiAccountsCBORHex.hexadecimal)
+        let multiAccounts = try! keystoneWallet.parseMultiAccounts(ur: ur)
+
+        XCTAssertEqual(multiAccounts.device, "keystone")
+        XCTAssertEqual(multiAccounts.deviceId, "28475c8d80f6c06bafbe46a7d1750f3fcf2565f7")
     }
 
     func testParseMultiAccountsWithSOL() {
