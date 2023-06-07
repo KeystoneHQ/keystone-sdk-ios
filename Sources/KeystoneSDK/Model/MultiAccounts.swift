@@ -9,6 +9,7 @@ import Foundation
 
 public struct MultiAccounts : Equatable, Codable {
     public var masterFingerprint: String
-    public var device: String?
     public var keys: Array<Account>
+    public var device: String?
+    public var deviceId: String?
 }
