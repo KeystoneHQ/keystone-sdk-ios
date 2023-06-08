@@ -7,6 +7,12 @@
 
 import Foundation
 
+public enum AccountNote: String {
+    case standard = "account.standard"
+    case ledgerLegacy = "account.ledger_legacy"
+    case ledgerLive = "account.ledger_live"
+}
+
 public struct OKXExtra: Equatable, Codable {
     public var chainId: Int
 }
