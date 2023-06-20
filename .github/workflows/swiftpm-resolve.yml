@@ -1,0 +1,19 @@
+name: resolve
+
+on:
+  push:
+    branches:
+      - "master"
+    tags:
+      - "!*"
+  pull_request:
+    branches:
+    - "*"
+
+jobs:
+  resolve:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Package
+      run: swift package resolve
