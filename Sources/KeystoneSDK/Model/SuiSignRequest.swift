@@ -9,16 +9,9 @@ import Foundation
 
 public struct SuiSignRequest {
     let requestId: String
-    let signData: String
-    let signType: SignType
+    let intentMessage: String
     let accounts: [Account]
     var origin: String
-
-    public enum SignType: Int32 {
-        case single = 1
-        case multi = 2
-        case message = 3
-    }
 
     public struct Account: Encodable {
         let path: String
@@ -32,10 +25,9 @@ public struct SuiSignRequest {
         }
     }
 
-    public init(requestId: String, signData: String, signType: SignType, accounts: [Account], origin: String = "") {
+    public init(requestId: String, intentMessage: String, accounts: [Account], origin: String = "") {
         self.requestId = requestId
-        self.signData = signData
-        self.signType = signType
+        self.intentMessage = intentMessage
         self.accounts = accounts
         self.origin = origin
     }

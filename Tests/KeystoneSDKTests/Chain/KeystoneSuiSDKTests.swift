@@ -39,8 +39,7 @@ final class KeystoneSuiSDKTests: XCTestCase {
     func testGenerateSignRequest() {
         let signRequest = SuiSignRequest(
             requestId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-            signData: "00000200201ff915a5e9e32fdbe0135535b6c69a00a9809aaf7f7c0275d3239ca79db20d6400081027000000000000020200010101000101020000010000ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec3944093886901a2e3e42930675d9571a467eb5d4b22553c93ccb84e9097972e02c490b4e7a22ab73200000000000020176c4727433105da34209f04ac3f22e192a2573d7948cb2fabde7d13a7f4f149ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec39440938869e803000000000000640000000000000000",
-            signType: .single,
+            intentMessage: "00000000000200201ff915a5e9e32fdbe0135535b6c69a00a9809aaf7f7c0275d3239ca79db20d6400081027000000000000020200010101000101020000010000ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec3944093886901a2e3e42930675d9571a467eb5d4b22553c93ccb84e9097972e02c490b4e7a22ab73200000000000020176c4727433105da34209f04ac3f22e192a2573d7948cb2fabde7d13a7f4f149ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec39440938869e803000000000000640000000000000000",
             accounts: [
                 SuiSignRequest.Account(path: "m/44'/784'/0'/0'/0'", xfp: "f23f9fd2", address: "0xebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec39440938869"),
                 SuiSignRequest.Account(path: "m/44'/784'/0'/0'/1'", xfp: "f23f9fd2", address: "1ff915a5e9e32fdbe0135535b6c69a00a9809aaf7f7c0275d3239ca79db20d64")
@@ -53,14 +52,13 @@ final class KeystoneSuiSDKTests: XCTestCase {
 
         let qrCode = signRequestEncoder.nextPart()
 
-        XCTAssertEqual(qrCode, "ur:sui-sign-request/oladtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdtaaeaeaoaecxctytbzonwlvldluyvtbwgoecrpswnyaeptlanypelbkeaokptecnnsosntprbtieaeaybediaeaeaeaeaeaeaoaoaeadadadaeadadaoaeaeadaeaewmvacnvlfrjkatwnecbsldeernqdzocmrdwsbsseqdwnrhdeiswysrmwfzmuloinadoevlvedtdyiohlmdjsoxiowmhlgrcpgofnmusfroglmhmsmsdmaossmhqzvdoedrrleyaeaeaeaeaeaecxchjzfldifxehahtneecxneaapsfhcpvymooehgfskkfdsbdlpyuekibwoswkwngawmvacnvlfrjkatwnecbsldeernqdzocmrdwsbsseqdwnrhdeiswysrmwfzmuloinvsaxaeaeaeaeaeaeieaeaeaeaeaeaeaeaeaxadaalftaaddyoeadlecsdwykcfaxbeykaeykaeykaeykaocywzfhnetdtaaddyoeadlecsdwykcfaxbeykaeykaeykadykaocywzfhnetdahlfhdcxwmvacnvlfrjkatwnecbsldeernqdzocmrdwsbsseqdwnrhdeiswysrmwfzmuloinhdcxctytbzonwlvldluyvtbwgoecrpswnyaeptlanypelbkeaokptecnnsosntprbtieamimgukpincxhghsjzjzihjyuytydndm")
+        XCTAssertEqual(qrCode, "ur:sui-sign-request/onadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohduoaeaeaeaeaeaoaecxctytbzonwlvldluyvtbwgoecrpswnyaeptlanypelbkeaokptecnnsosntprbtieaeaybediaeaeaeaeaeaeaoaoaeadadadaeadadaoaeaeadaeaewmvacnvlfrjkatwnecbsldeernqdzocmrdwsbsseqdwnrhdeiswysrmwfzmuloinadoevlvedtdyiohlmdjsoxiowmhlgrcpgofnmusfroglmhmsmsdmaossmhqzvdoedrrleyaeaeaeaeaeaecxchjzfldifxehahtneecxneaapsfhcpvymooehgfskkfdsbdlpyuekibwoswkwngawmvacnvlfrjkatwnecbsldeernqdzocmrdwsbsseqdwnrhdeiswysrmwfzmuloinvsaxaeaeaeaeaeaeieaeaeaeaeaeaeaeaeaxlftaaddyoeadlecsdwykcfaxbeykaeykaeykaeykaocywzfhnetdtaaddyoeadlecsdwykcfaxbeykaeykaeykadykaocywzfhnetdaalfhdcxwmvacnvlfrjkatwnecbsldeernqdzocmrdwsbsseqdwnrhdeiswysrmwfzmuloinhdcxctytbzonwlvldluyvtbwgoecrpswnyaeptlanypelbkeaokptecnnsosntprbtieahimgukpincxhghsjzjzihjynllkahgt")
     }
 
     func testGenerateSignRequestError() {
         let signRequest = SuiSignRequest(
             requestId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb",
-            signData: "00000200201ff915a5e9e32fdbe0135535b6c69a00a9809aaf7f7c0275d3239ca79db20d6400081027000000000000020200010101000101020000010000ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec3944093886901a2e3e42930675d9571a467eb5d4b22553c93ccb84e9097972e02c490b4e7a22ab73200000000000020176c4727433105da34209f04ac3f22e192a2573d7948cb2fabde7d13a7f4f149ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec39440938869e803000000000000640000000000000000",
-            signType: .single,
+            intentMessage: "00000000000200201ff915a5e9e32fdbe0135535b6c69a00a9809aaf7f7c0275d3239ca79db20d6400081027000000000000020200010101000101020000010000ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec3944093886901a2e3e42930675d9571a467eb5d4b22553c93ccb84e9097972e02c490b4e7a22ab73200000000000020176c4727433105da34209f04ac3f22e192a2573d7948cb2fabde7d13a7f4f149ebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec39440938869e803000000000000640000000000000000",
             accounts: [
                 SuiSignRequest.Account(path: "m/44'/784'/0'/0'/0'", xfp: "f23f9fd2", address: "0xebe623e33b7307f1350f8934beb3fb16baef0fc1b3f1b92868eec39440938869"),
                 SuiSignRequest.Account(path: "m/44'/784'/0'/0'/1'", xfp: "f23f9fd2", address: "1ff915a5e9e32fdbe0135535b6c69a00a9809aaf7f7c0275d3239ca79db20d64")
