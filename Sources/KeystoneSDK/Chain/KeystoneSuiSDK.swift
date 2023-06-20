@@ -22,7 +22,7 @@ public class KeystoneSuiSDK: KeystoneBaseSDK {
     public func generateSignRequest(suiSignRequest: SuiSignRequest) throws -> UREncoder {
         let accountsJson = String(data: try jsonEncoder.encode(suiSignRequest.accounts), encoding: .utf8)
         let signRequest = handle_error(
-            get_result: { generate_sui_sign_request($0, suiSignRequest.requestId, suiSignRequest.signData, suiSignRequest.signType.rawValue, accountsJson, suiSignRequest.origin)}
+            get_result: { generate_sui_sign_request($0, suiSignRequest.requestId, suiSignRequest.intentMessage, accountsJson, suiSignRequest.origin)}
         )
         return try super.generateSignRequest(signRequest: signRequest)
     }
