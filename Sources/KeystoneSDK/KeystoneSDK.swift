@@ -29,6 +29,9 @@ public class KeystoneSDK {
     public lazy var cosmos: KeystoneCosmosSDK = {
        return KeystoneCosmosSDK()
     }()
+    public lazy var evm: KeystoneEvmSDK = {
+       return KeystoneEvmSDK()
+    }()
     public lazy var tron: KeystoneTronSDK = {
        return KeystoneTronSDK()
     }()
