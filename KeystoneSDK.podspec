@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
   spec.version      = "0.5.1"
   spec.summary      = "A library to simplify the way how software wallets communicate with the Keystone hardware wallet via UR."
   spec.homepage     = "https://github.com/KeystoneHQ/keystone-sdk-ios"
-  spec.license      = 'MIT'
+  spec.license      = { :type => 'Copyright', :text => 'Copyright 2023 Keystone' }
   spec.author       = "Keystone"
   spec.social_media_url   = "https://twitter.com/KeystoneWallet"
   spec.swift_version = "5.0"
