@@ -13,7 +13,6 @@ public class CryptoPath {
         let parseHDPath = handle_error(
             get_result: { parse_hd_path($0, hdPath) }
         )
-        let path = try! KeystoneBaseSDK().jsonDecoder.decode(NativeResult<HDPath>.self, from: Data(parseHDPath.utf8))
-        return path.result
+        return try! KeystoneBaseSDK().jsonDecoder.decode(HDPath.self, from: Data(parseHDPath.utf8))
     }
 }
