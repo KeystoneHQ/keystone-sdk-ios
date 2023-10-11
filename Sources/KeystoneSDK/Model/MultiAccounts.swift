@@ -12,4 +12,5 @@ public struct MultiAccounts : Equatable, Codable {
     public var keys: Array<Account>
     public var device: String?
     public var deviceId: String?
+    public var deviceVersion: String?
 }
