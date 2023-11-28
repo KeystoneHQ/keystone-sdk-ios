@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KeystoneHQ/BCSwiftDCBOR.git",
       "state" : {
-        "revision" : "1830abea38243eac9ccc5e1f8c03244073791a4d",
-        "version" : "0.10.0"
+        "revision" : "71a4b14e77679b7f925df11b0aac01fcb03d647f",
+        "version" : "0.10.1"
       }
     },
     {

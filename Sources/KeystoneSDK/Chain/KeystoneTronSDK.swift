@@ -12,11 +12,11 @@ import URKit
 
 public class KeystoneTronSDK: KeystoneBaseSDK {
 
-    public func parseSignature(ur: UR) throws -> Signature {
+    public func parseSignature(ur: UR) throws -> TronSignature {
         let signResult = handle_error(
             get_result: { parse_tron_signature($0, ur.type, ur.cborData.hexEncodedString()) }
         )
-        return try super.parseSignature(signResult: signResult)
+        return try super.parseUR(urString: signResult, ofType: TronSignature.self, ofError: KeystoneError.parseSignatureError)
     }
 
     public func generateSignRequest(tronSignRequest: TronSignRequest) throws -> UREncoder {

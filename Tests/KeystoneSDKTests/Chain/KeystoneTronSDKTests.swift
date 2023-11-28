@@ -29,7 +29,7 @@ final class KeystoneTronSDKTests: XCTestCase {
         let tronSignature = try! tronSdk.parseSignature(ur: ur)
 
         XCTAssertEqual(tronSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
-        XCTAssertEqual(tronSignature.signature, "42a9ece5a555a9437de74108d0fb5320f20835e108b961bb8b230228ea07c485412625863391d49692be558067f9e00559641f5ee63d8ab09275a51afe555b7e01")
+        XCTAssertEqual(tronSignature.raw, "42a9ece5a555a9437de74108d0fb5320f20835e108b961bb8b230228ea07c485412625863391d49692be558067f9e00559641f5ee63d8ab09275a51afe555b7e01")
     }
     
     func testGenerateSignRequest() {
