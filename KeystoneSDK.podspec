@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "KeystoneSDK"
-  spec.version      = "0.6.3"
+  spec.version      = "0.6.4"
   spec.summary      = "A library to simplify the way how software wallets communicate with the Keystone hardware wallet via UR."
   spec.homepage     = "https://github.com/KeystoneHQ/keystone-sdk-ios"
   spec.license      = { :type => 'Copyright', :text => 'Copyright 2023 Keystone' }
@@ -12,6 +12,6 @@ Pod::Spec.new do |spec|
   spec.source_files  = "Sources/KeystoneSDK/*.swift", "Sources/KeystoneSDK/**/*.swift"
   spec.requires_arc = true
   spec.static_framework = true
-  spec.dependency "URRegistryFFI", "~> 0.2.4"
+  spec.dependency "URRegistryFFI", "~> 0.2.5"
   spec.dependency "URKit", "~> 10.1.0"
 end
