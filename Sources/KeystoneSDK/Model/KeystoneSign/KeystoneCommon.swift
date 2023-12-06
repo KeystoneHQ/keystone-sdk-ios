@@ -41,8 +41,8 @@ public struct Output: Codable {
 }
 
 public struct TransactionSignResult: Codable {
-    let requestId: String
-    let rawData: String
+    public var requestId: String
+    public var rawData: String
 
     public init(requestId: String, rawData: String) {
         self.requestId = requestId
