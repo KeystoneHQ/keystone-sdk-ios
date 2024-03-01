@@ -28,11 +28,11 @@ public struct Input: Codable {
 
 public struct Output: Codable {
     let address: String
-    let value: Int32
+    let value: Int64
     let isChange: Bool
     let changeAddressPath: String
 
-    public init(address: String, value: Int32, isChange: Bool = false, changeAddressPath: String = "") {
+    public init(address: String, value: Int64, isChange: Bool = false, changeAddressPath: String = "") {
         self.address = address
         self.value = value
         self.isChange = isChange
