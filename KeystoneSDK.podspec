@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "KeystoneSDK"
-  spec.version      = "0.6.5"
+  spec.version      = "0.6.6"
   spec.summary      = "A library to simplify the way how software wallets communicate with the Keystone hardware wallet via UR."
   spec.homepage     = "https://github.com/KeystoneHQ/keystone-sdk-ios"
   spec.license      = { :type => 'Copyright', :text => 'Copyright 2023 Keystone' }
