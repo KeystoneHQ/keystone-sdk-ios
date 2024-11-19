@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "bcswiftcrypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KeystoneHQ/BCSwiftCrypto.git",
+      "state" : {
+        "revision" : "f3b7faadfbd681786e9db73d66d3fe1053628fe5",
+        "version" : "0.9.0"
+      }
+    },
+    {
       "identity" : "bcswiftdcbor",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KeystoneHQ/BCSwiftDCBOR.git",
       "state" : {
-        "revision" : "71a4b14e77679b7f925df11b0aac01fcb03d647f",
-        "version" : "0.10.1"
+        "revision" : "0330a29a502a43e0c5da1289f00bfa0c1488378c",
+        "version" : "0.11.1"
       }
     },
     {
@@ -19,12 +28,48 @@
       }
     },
     {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "678d442c6f7828def400a70ae15968aef67ef52d",
+        "version" : "1.8.3"
+      }
+    },
+    {
+      "identity" : "secp256k1",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/portto/secp256k1.git",
+      "state" : {
+        "revision" : "6864a2560066cedede330c4b344689432a7300f7",
+        "version" : "0.0.5"
+      }
+    },
+    {
+      "identity" : "secp256k1.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KeystoneHQ/secp256k1.swift.git",
+      "state" : {
+        "revision" : "95bfcee9f194c7a0d52ec29f40bf884812559a7c",
+        "version" : "0.8.1"
+      }
+    },
+    {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wolfmcnally/swift-collections",
+      "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "53a8adc54374f620002a3b6401d39e0feb3c57ae",
+        "revision" : "94cf62b3ba8d4bed62680a282d4c25f9c63c2efb",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-collections-sorted-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/soralit/swift-collections-sorted-collections",
+      "state" : {
+        "revision" : "eebe309da4f42ab6a38a057c74b3d8e7b4233b38",
+        "version" : "1.2.2"
       }
     },
     {
@@ -32,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KeystoneHQ/URKit.git",
       "state" : {
-        "revision" : "c2a8d7dc7590ec79cd9bdcd7779ce3ba110e07aa",
-        "version" : "10.1.0"
+        "revision" : "dfac3005730c2ac189e7db173705c9e400046dcd",
+        "version" : "11.5.1"
       }
     }
   ],
