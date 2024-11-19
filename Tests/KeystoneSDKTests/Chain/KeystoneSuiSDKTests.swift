@@ -16,7 +16,7 @@ final class KeystoneSuiSDKTests: XCTestCase {
         let signatureHex = "A301D825509B1DEB4D3B7D4BAD9BDD2B0D7B3DCB6D025840F4B79835417490958C72492723409289B444F3AF18274BA484A9EEACA9E760520E453776E5975DF058B537476932A45239685F694FC6362FE5AF6BA714DA6505035820AEB28ECACE5C664C080E71B9EFD3D071B3DAC119A26F4E830DD6BD06712ED93F"
 
         let sdk = KeystoneSuiSDK()
-        let ur = try! UR(type: "sui-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "sui-signature", cbor: CBOR(signatureHex.hexadecimal))
         let signature = try! sdk.parseSignature(ur: ur)
 
         XCTAssertEqual(signature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -27,7 +27,7 @@ final class KeystoneSuiSDKTests: XCTestCase {
     func testParseSignatureError() {
         let signatureHex = "a201d825509b1de"
         let sdk = KeystoneSuiSDK()
-        let ur = try! UR(type: "sui-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "sui-signature", cbor: CBOR(signatureHex.hexadecimal))
 
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {

@@ -14,7 +14,7 @@ public class KeystoneSolanaSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> Signature {
         let signResult = handle_error(
-            get_result: { parse_sol_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_sol_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseSignature(signResult: signResult)
     }

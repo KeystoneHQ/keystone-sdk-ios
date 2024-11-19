@@ -16,7 +16,7 @@ final class KeystoneAptosSDKTests: XCTestCase {
         let signatureHex = "a301d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d02584047e7b510784406dfa14d9fd13c3834128b49c56ddfc28edb02c5047219779adeed12017e2f9f116e83762e86f805c7311ea88fb403ff21900e069142b1fb310e0358208e53e7b10656816de70824e3016fc1a277e77825e12825dc4f239f418ab2e04e"
 
         let sdk = KeystoneAptosSDK()
-        let ur = try! UR(type: "aptos-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "aptos-signature", cbor: CBOR(signatureHex.hexadecimal))
         let signature = try! sdk.parseSignature(ur: ur)
 
         XCTAssertEqual(signature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -27,7 +27,7 @@ final class KeystoneAptosSDKTests: XCTestCase {
     func testParseSignatureError() {
         let signatureHex = "a201d825509b1de"
         let sdk = KeystoneAptosSDK()
-        let ur = try! UR(type: "aptos-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "aptos-signature", cbor: CBOR(signatureHex.hexadecimal))
 
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {

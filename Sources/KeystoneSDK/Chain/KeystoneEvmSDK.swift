@@ -14,7 +14,7 @@ public class KeystoneEvmSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> Signature {
         let signResult = handle_error(
-            get_result: { parse_evm_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_evm_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: Signature.self, ofError: KeystoneError.parseSignatureError)
     }

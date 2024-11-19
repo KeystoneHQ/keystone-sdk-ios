@@ -17,7 +17,7 @@ final class KeystoneEthereumSDKTests: XCTestCase {
         let ethSignatureHex = "a301d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025841d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f71303686b657973746f6e65"
 
         let ethereumSdk = KeystoneEthereumSDK()
-        let ur = try! UR(type: "eth-signature", cborData: ethSignatureHex.hexadecimal)
+        let ur = try! UR(type: "eth-signature", cbor: CBOR(ethSignatureHex.hexadecimal))
         let ethSignature = try! ethereumSdk.parseSignature(ur: ur)
 
         XCTAssertEqual(ethSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -27,7 +27,7 @@ final class KeystoneEthereumSDKTests: XCTestCase {
     func testParseSignatureError() {
         let ethSignatureHex = "a201d825509b1de"
         let ethereumSdk = KeystoneEthereumSDK()
-        let ur = try! UR(type: "eth-signature", cborData: ethSignatureHex.hexadecimal)
+        let ur = try! UR(type: "eth-signature", cbor: CBOR(ethSignatureHex.hexadecimal))
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try ethereumSdk.parseSignature(ur: ur)) {

@@ -41,7 +41,7 @@ final class KeystoneLitecoinSDKTests: XCTestCase {
         let signResultData = "a1015901b11f8b08000000000000004d923d8e14300c85b5628b0121214db9150505cd48fe8b635351a0a9b942123b0d122376b7e12c9c8c1b50517002cca241b88822c7fe64bf97c3cdf1d5a7fcfaf078f99cafbfdcaf4be4dd8fdbc3f3e3e14c7cf6f3077af7fdf6c59bb55c74269d2c659d84669e06139e9a8ec6c3d66ea8c7f7b2713919e0748bec113ef7f018c8a2446d933832c2de9b87efb0ee0a163b8ad17af77df7f319105c030195b70e9bb46016cf8c53862e6c0da9b1b7e4241113a69014666b3e07e2c831d6ac6b2bc65f5447ad53960866065ab22f81ec93338d3036e54a27eca0dcc176eca70042a00eff05f6e128c9c164620bb7f49a0d427dda469ecdc97b20470930b7f55caa38ae735cfbfb54d6ec69211a634ccf05630cf134fcb31fc2ea5533ad03496710012290dda2d74b099292c05a45e62bb74cf766a3483a143266ae51f6706d365a69b3cb26c9f9c468e808d6c0a66bf26ab01741ccca4ccba0020e3441dccaa1adaa2672b9db5bb9d4a9142d49b8a94994538930178eb261468fe6595340dfb4d173bb5a3524962e59a84466d7da5554af6abcfdf6eb865efefb7f1fef2fbf01cb596bb490020000"
 
         let ltcSdk = KeystoneLitecoinSDK()
-        let ur = try! UR(type: "keystone-sign-result", cborData: signResultData.hexadecimal)
+        let ur = try! UR(type: "keystone-sign-result", cbor: CBOR(signResultData.hexadecimal))
         let signResult = try! ltcSdk.parseSignResult(ur: ur)
 
         XCTAssertEqual(signResult.requestId, "cc946be2-8e4c-42be-a321-56a53a8cf516")
@@ -52,7 +52,7 @@ final class KeystoneLitecoinSDKTests: XCTestCase {
         let signResultData = "a1015901b11f8b08000000000000004d9"
 
         let ltcSdk = KeystoneLitecoinSDK()
-        let ur = try! UR(type: "keystone-sign-result", cborData: signResultData.hexadecimal)
+        let ur = try! UR(type: "keystone-sign-result", cbor: CBOR(signResultData.hexadecimal))
 
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try ltcSdk.parseSignResult(ur: ur)) {

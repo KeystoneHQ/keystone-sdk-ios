@@ -9,7 +9,7 @@ final class KeystoneNearSDKTests: XCTestCase {
         let cborHex = "a201d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d0281584085c578f8ca68bf8d771f0346ed68c4170df9ee9878cb76f3e2fac425c3f5793d36a741547e245c6c7ac1b9433ad5fc523d41152cac2a3726cbe134e0a0366802"
 
         let sdk = KeystoneNearSDK()
-        let ur = try! UR(type: "near-signature", cborData: cborHex.hexadecimal)
+        let ur = try! UR(type: "near-signature", cbor: CBOR(cborHex.hexadecimal))
         let nearSignature = try! sdk.parseSignature(ur: ur)
 
         XCTAssertEqual(nearSignature.requestId, "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d")
@@ -19,7 +19,7 @@ final class KeystoneNearSDKTests: XCTestCase {
     func testParseSignatureError() {
         let cborHex = "a201d825509b1de"
         let sdk = KeystoneNearSDK()
-        let ur = try! UR(type: "near-signature", cborData: cborHex.hexadecimal)
+        let ur = try! UR(type: "near-signature", cbor: CBOR(cborHex.hexadecimal))
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {

@@ -14,7 +14,7 @@ public class KeystoneAptosSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> AptosSignature {
         let signResult = handle_error(
-            get_result: { parse_aptos_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_aptos_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: AptosSignature.self, ofError: KeystoneError.parseSignatureError)
     }

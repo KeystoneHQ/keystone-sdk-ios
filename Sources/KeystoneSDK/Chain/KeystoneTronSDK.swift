@@ -14,7 +14,7 @@ public class KeystoneTronSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> TronSignature {
         let signResult = handle_error(
-            get_result: { parse_tron_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_tron_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: TronSignature.self, ofError: KeystoneError.parseSignatureError)
     }

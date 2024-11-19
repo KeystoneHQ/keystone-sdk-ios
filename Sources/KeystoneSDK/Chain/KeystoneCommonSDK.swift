@@ -24,7 +24,7 @@ public class KeystoneCommonSDK: KeystoneBaseSDK {
 
     public func parseSignResult(ur: UR) throws -> TransactionSignResult {
         let signResult = handle_error(
-            get_result: { parse_keystone_sign_result($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_keystone_sign_result($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: TransactionSignResult.self, ofError: KeystoneError.parseSignatureError)
     }

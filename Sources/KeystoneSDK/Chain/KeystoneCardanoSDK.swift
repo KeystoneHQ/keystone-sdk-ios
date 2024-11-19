@@ -14,7 +14,7 @@ public class KeystoneCardanoSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> CardanoSignature {
         let signResult = handle_error(
-            get_result: { parse_cardano_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_cardano_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: CardanoSignature.self, ofError: KeystoneError.parseSignatureError)
     }

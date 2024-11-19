@@ -14,7 +14,7 @@ final class KeystoneCosmosSDKTests: XCTestCase {
         let signatureHex = "a301d825507afd5e09926743fba02e08c4a09417ec02584078325c2ea8d1841dbcd962e894ca6ecd5890aa4c1aa9e1eb789cd2d0e9c22ec737c2b4fb9c2defd863cadf914f538330ec42d6c30c04857ee1f06e7f2589d7d903582103f3ded94f2969d76200c6ed5db836041cc815fa62aa791e047905186c07e00275"
 
         let sdk = KeystoneCosmosSDK()
-        let ur = try! UR(type: "cosmos-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "cosmos-signature", cbor: CBOR(signatureHex.hexadecimal))
         let signature = try! sdk.parseSignature(ur: ur)
 
         XCTAssertEqual(signature.requestId, "7afd5e09-9267-43fb-a02e-08c4a09417ec")
@@ -25,7 +25,7 @@ final class KeystoneCosmosSDKTests: XCTestCase {
     func testParseSignatureError() {
         let signatureHex = "a201d825509b1de"
         let sdk = KeystoneCosmosSDK()
-        let ur = try! UR(type: "cosmos-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "cosmos-signature", cbor: CBOR(signatureHex.hexadecimal))
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {

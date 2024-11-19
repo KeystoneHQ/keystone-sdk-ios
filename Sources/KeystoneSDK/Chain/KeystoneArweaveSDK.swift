@@ -14,14 +14,14 @@ public class KeystoneArweaveSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> Signature {
         let signResult = handle_error(
-            get_result: { parse_arweave_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_arweave_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: Signature.self, ofError: KeystoneError.parseSignatureError)
     }
 
     public func parseAccount(ur: UR) throws -> ArweaveAccount {
         let signResult = handle_error(
-            get_result: { parse_arweave_account($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_arweave_account($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: ArweaveAccount.self, ofError: KeystoneError.syncAccountsError)
     }

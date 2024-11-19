@@ -55,7 +55,7 @@ public class KeystoneBaseSDK {
     func urStringToEncoder(urString: String, ofError: (String) -> KeystoneError) throws -> UREncoder {
         do {
             let txUR = try jsonDecoder.decode(NativeUR.self, from: Data(urString.utf8))
-            let encodeUR = try URKit.UR(type: txUR.type, cborData: txUR.cbor.hexadecimal)
+            let encodeUR = try URKit.UR(type: txUR.type, cbor: CBOR(txUR.cbor.hexadecimal) )
             return UREncoder(encodeUR, maxFragmentLen: KeystoneSDK.maxFragmentLen)
         } catch {
             do {

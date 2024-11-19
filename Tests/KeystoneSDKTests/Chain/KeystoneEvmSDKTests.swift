@@ -15,7 +15,7 @@ final class KeystoneEvmSDKTests: XCTestCase {
         let signatureHex = "a201d82550057523355d514a64a481ff2200000000025840a0e2577ca16119a32f421c6a1c90fa2178a9382f30bf3575ff276fb820b32b3269d49d6bbfc82bae899f60c15de4b97f24a7ebb6d4712534829628ccfbef38bc"
 
         let sdk = KeystoneEvmSDK()
-        let ur = try! UR(type: "evm-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "evm-signature", cbor: CBOR(signatureHex.hexadecimal))
         let signature = try! sdk.parseSignature(ur: ur)
 
         XCTAssertEqual(signature.requestId, "05752335-5d51-4a64-a481-ff2200000000")
@@ -25,7 +25,7 @@ final class KeystoneEvmSDKTests: XCTestCase {
     func testParseSignatureError() {
         let signatureHex = "a201d825509b1de"
         let sdk = KeystoneEvmSDK()
-        let ur = try! UR(type: "evm-signature", cborData: signatureHex.hexadecimal)
+        let ur = try! UR(type: "evm-signature", cbor: CBOR(signatureHex.hexadecimal))
         
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {

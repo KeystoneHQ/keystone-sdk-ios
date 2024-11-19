@@ -14,7 +14,7 @@ public class KeystoneNearSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> NearSignature {
         let signResult = handle_error(
-            get_result: { parse_near_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_near_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try parseUR(urString: signResult, ofType: NearSignature.self, ofError: KeystoneError.parseSignatureError)
     }

@@ -12,7 +12,7 @@ import URKit
 public class KeystoneWallet: KeystoneBaseSDK {
     func parseMultiAccounts(ur: UR) throws -> MultiAccounts {
         let multiAccounts = handle_error(
-            get_result: { parse_crypto_multi_accounts($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_crypto_multi_accounts($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: multiAccounts, ofType: MultiAccounts.self, ofError: KeystoneError.syncAccountsError)
     }

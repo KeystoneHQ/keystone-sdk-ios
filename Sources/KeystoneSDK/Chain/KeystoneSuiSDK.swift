@@ -14,7 +14,7 @@ public class KeystoneSuiSDK: KeystoneBaseSDK {
 
     public func parseSignature(ur: UR) throws -> SuiSignature {
         let signResult = handle_error(
-            get_result: { parse_sui_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_sui_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseUR(urString: signResult, ofType: SuiSignature.self, ofError: KeystoneError.parseSignatureError)
     }

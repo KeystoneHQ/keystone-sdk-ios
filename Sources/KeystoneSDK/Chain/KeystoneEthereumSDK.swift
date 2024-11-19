@@ -13,7 +13,7 @@ import URKit
 public class KeystoneEthereumSDK: KeystoneBaseSDK {
     public func parseSignature(ur: UR) throws -> Signature {
         let signResult = handle_error(
-            get_result: { parse_eth_signature($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_eth_signature($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
         return try super.parseSignature(signResult: signResult)
     }

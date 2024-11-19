@@ -12,7 +12,7 @@ import URKit
 public class KeystoneBitcoinSDK: KeystoneBaseSDK {
     public func parsePSBT(ur: UR) throws -> Data {
         let psbtURString = handle_error(
-            get_result: { parse_crypto_psbt($0, ur.type, ur.cborData.hexEncodedString()) }
+            get_result: { parse_crypto_psbt($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
         )
 
         let psbt = try super.parseUR(urString: psbtURString, ofType: PSBT.self, ofError: KeystoneError.parsePSBTError)

@@ -39,7 +39,7 @@ final class KeystoneDashSDKTests: XCTestCase {
         let signResultData = "a1015901b11f8b08000000000000004d9"
 
         let ltcSdk = KeystoneLitecoinSDK()
-        let ur = try! UR(type: "keystone-sign-result", cborData: signResultData.hexadecimal)
+        let ur = try! UR(type: "keystone-sign-result", cbor: CBOR( signResultData.hexadecimal))
 
         var thrownError: Swift.Error?
         XCTAssertThrowsError(try ltcSdk.parseSignResult(ur: ur)) {
