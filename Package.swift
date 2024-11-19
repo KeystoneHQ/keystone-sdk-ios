@@ -15,7 +15,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/KeystoneHQ/URKit.git", from: "10.1.0")
+        .package(url: "https://github.com/KeystoneHQ/URKit.git", from: "11.5.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
