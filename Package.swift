@@ -26,8 +26,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "URRegistryFFI",
-            url: "https://github.com/KeystoneHQ/keystone-sdk-rust/releases/download/sdk-0.1.8/URRegistryFFI.xcframework.zip",
-            checksum: "5fc2d2f82e99793d1d6650d25ebbab99fb2c77d5622bdb3374d65aa87264b61e"
+            url: "https://github.com/KeystoneHQ/keystone-sdk-rust/releases/download/sdk-0.2.0/URRegistryFFI.xcframework.zip",
+            checksum: "d8ccb3f368e68de85af3cefca87588d0f5baee114e620a5bef1a89206f46e5eb"
         ),
         .testTarget(
             name: "KeystoneSDKTests",
