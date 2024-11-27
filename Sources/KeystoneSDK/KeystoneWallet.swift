@@ -16,4 +16,11 @@ public class KeystoneWallet: KeystoneBaseSDK {
         )
         return try super.parseUR(urString: multiAccounts, ofType: MultiAccounts.self, ofError: KeystoneError.syncAccountsError)
     }
+    
+    func parseZcashAccounts(ur: UR) throws -> ZcashAccounts {
+        let zcashAccounts = handle_error(
+            get_result: { parse_zcash_accounts($0, ur.type, ur.cbor.cborData.hexEncodedString()) }
+        )
+        return try super.parseUR(urString: zcashAccounts, ofType: ZcashAccounts.self, ofError: KeystoneError.syncAccountsError)
+    }
 }
