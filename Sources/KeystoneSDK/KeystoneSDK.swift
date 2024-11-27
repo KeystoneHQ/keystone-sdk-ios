@@ -95,4 +95,8 @@ public class KeystoneSDK {
     public func parseMultiAccounts(ur: UR) throws -> MultiAccounts {
         return try wallet.parseMultiAccounts(ur: ur)
     }
+    
+    public func parseZcashAccounts(ur: UR) throws -> ZcashAccounts {
+        return try wallet.parseZcashAccounts(ur: ur)
+    }
 }

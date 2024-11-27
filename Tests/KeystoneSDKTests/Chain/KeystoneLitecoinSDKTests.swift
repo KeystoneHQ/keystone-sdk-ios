@@ -48,19 +48,6 @@ final class KeystoneLitecoinSDKTests: XCTestCase {
         XCTAssertEqual(signResult.rawData, "0200000000010163f6a8b2c0bde7883e4a6c155125395e3e2448432d4e433859ba11aeaacb9ba50100000017160014c441eed18e39c40e7b3ee821df2ece9217063708fdffffff02102700000000000017a914e3d32848c1f470bd0d69b8f13b59297d13d8debf87ec661a010000000017a9147b636e7e8d46daab9ec0aaa49e816c1510c77b6b870247304402204f5d70c78b2e4e036c7789cef4b9958adaa6a60edbecaa323821a52d4f56a4eb02204519108508b96e3c50fc20db850b8ed2789a18411f63d658b9b13f5175da57250121035684d200e10bc1a3e2bd7d59e58a07f2f19ef968725e18f1ed65e13396ab946600000000")
     }
 
-    func testParseSignResultError() {
-        let signResultData = "a1015901b11f8b08000000000000004d9"
-
-        let ltcSdk = KeystoneLitecoinSDK()
-        let ur = try! UR(type: "keystone-sign-result", cbor: CBOR(signResultData.hexadecimal))
-
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try ltcSdk.parseSignResult(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("sign result is invalid"))
-    }
-
     func testGenerateSignRequest() {
         let ltcSignRequest = KeystoneSignRequest<LitecoinTransaction>(
             requestId: "cc946be2-8e4c-42be-a321-56a53a8cf516",

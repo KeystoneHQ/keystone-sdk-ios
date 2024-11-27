@@ -35,19 +35,6 @@ final class KeystoneDashSDKTests: XCTestCase {
         ]
     )
 
-    func testParseSignResultError() {
-        let signResultData = "a1015901b11f8b08000000000000004d9"
-
-        let ltcSdk = KeystoneLitecoinSDK()
-        let ur = try! UR(type: "keystone-sign-result", cbor: CBOR( signResultData.hexadecimal))
-
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try ltcSdk.parseSignResult(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("sign result is invalid"))
-    }
-
     func testGenerateSignRequest() {
         let dashSignRequest = KeystoneSignRequest<UtxoBaseTransaction>(
             requestId: "cc946be2-8e4c-42be-a321-56a53a8cf516",

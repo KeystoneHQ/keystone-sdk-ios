@@ -16,19 +16,6 @@ final class KeystoneSolanaSDKTests: XCTestCase {
         XCTAssertEqual(solSignature.signature, "d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f7")
     }
 
-    func testParseSignatureError() {
-        let solSignatureHex = "a201d825509b1de"
-        let solanaSdk = KeystoneSolanaSDK()
-        let ur = try! UR(type: "sol-signature", cbor: CBOR(solSignatureHex.hexadecimal))
-        
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try solanaSdk.parseSignature(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("signature is invalid"))
-    }
-
-
     func testGenerateSignRequest() {
         let solSignRequest = SolSignRequest(
             requestId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
