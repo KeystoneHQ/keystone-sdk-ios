@@ -23,7 +23,7 @@ public struct CardanoSignRequest {
     let origin: String
 
     public struct Utxo: Codable {
-        public init(transactionHash: String, index: UInt32, amount: UInt64, xfp: String, hdPath: String, address: String) {
+        public init(transactionHash: String, index: UInt32, amount: String, xfp: String, hdPath: String, address: String) {
             self.transactionHash = transactionHash
             self.index = index
             self.amount = amount
@@ -34,7 +34,7 @@ public struct CardanoSignRequest {
 
         let transactionHash: String
         let index: UInt32
-        let amount: UInt64
+        let amount: String
         let xfp: String
         let hdPath: String
         let address: String
