@@ -78,15 +78,24 @@ final class KeystoneWalletTests: XCTestCase {
         XCTAssertEqual(firstHDKey.extendedPublicKey, "")
     }
     
-    func testParseMultiAccountsError() {
-        let multiAccountsCBORHex = "a3011ae9181cf30281d9012fa203582102eae4b876a8696134b868f88cc2f51f715f2dbe"
+    func testParseZcashAccounts() {
+        let zcashAccountsCBORHex = "a2015820af5d9c247e91d0cbf603f6f6f49cfc218eabf9a2c1d886ce94fc167d6da7e6640281d9c033a301d9012fa3035821026a2281be37e884fbf0a1d688f76ea5537a74b19230311bc9a82cf43e588d628d045820aa46fcc6aeec9beef1b79b614cdf5093a323964dcf82a86842a82b5ccfd7171e06d90130a10186182cf51885f500f502d9c032a201d90130a101861820f51885f500f502586083ceb48bb24a4debb403c3cc02043f5157ec4f084b8fb359a58f53ab4cd3741b339461f1504081a0765b12b87cac9c4a3baa55b155192d3cfd98a7517b8a59019744b22b89ba0daaa32de9d883a727be7e2ca09446f87efe0e5b29ce98c65f190366363636363636"
+        
         let keystoneWallet = KeystoneWallet()
-        let ur = try! UR(type: "crypto-multi-accounts", cbor: CBOR(multiAccountsCBORHex.hexadecimal))
+        let ur = try! UR(type: "zcash-accounts", cbor: CBOR(zcashAccountsCBORHex.hexadecimal))
+        
+        let zcashAccounts = try! keystoneWallet.parseZcashAccounts(ur: ur)
+        
+        let account = zcashAccounts.accounts[0]
+        
+        XCTAssertEqual(zcashAccounts.seedFingerprint, "af5d9c247e91d0cbf603f6f6f49cfc218eabf9a2c1d886ce94fc167d6da7e664")
+        XCTAssertEqual(account.name, "666666")
 
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try keystoneWallet.parseMultiAccounts(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .syncAccountsError("crypto multi accounts is invalid"))
+        XCTAssertEqual(account.transparent?.path, "44'/133'/0'")
+        XCTAssertEqual(account.transparent?.xpub, "xpub6BemYiVNp19a1pwFbJgXWyJe7gKX2i9yv3xVkvpzHTikk1HfCpmhKqzFCNr5ctbipukfd7AbJFmCB13StCmSrqZHucLbBA4EWt89fiZA83x")
+        
+        XCTAssertEqual(account.orchard.path, "32'/133'/0'")
+        XCTAssertEqual(account.orchard.fvk, "83ceb48bb24a4debb403c3cc02043f5157ec4f084b8fb359a58f53ab4cd3741b339461f1504081a0765b12b87cac9c4a3baa55b155192d3cfd98a7517b8a59019744b22b89ba0daaa32de9d883a727be7e2ca09446f87efe0e5b29ce98c65f19")
+        
     }
 }

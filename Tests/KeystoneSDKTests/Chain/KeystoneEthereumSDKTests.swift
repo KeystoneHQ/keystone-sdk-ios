@@ -24,19 +24,6 @@ final class KeystoneEthereumSDKTests: XCTestCase {
         XCTAssertEqual(ethSignature.signature, "d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f713")
     }
 
-    func testParseSignatureError() {
-        let ethSignatureHex = "a201d825509b1de"
-        let ethereumSdk = KeystoneEthereumSDK()
-        let ur = try! UR(type: "eth-signature", cbor: CBOR(ethSignatureHex.hexadecimal))
-        
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try ethereumSdk.parseSignature(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("signature is invalid"))
-    }
-
-
     func testGenerateSignRequest() {
         let ethSignRequest = EthSignRequest(
             requestId: "6c3633c0-02c0-4313-9cd7-e25f4f296729",

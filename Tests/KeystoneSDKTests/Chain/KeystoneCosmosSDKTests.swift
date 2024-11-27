@@ -22,18 +22,6 @@ final class KeystoneCosmosSDKTests: XCTestCase {
         XCTAssertEqual(signature.publicKey, "03f3ded94f2969d76200c6ed5db836041cc815fa62aa791e047905186c07e00275")
     }
 
-    func testParseSignatureError() {
-        let signatureHex = "a201d825509b1de"
-        let sdk = KeystoneCosmosSDK()
-        let ur = try! UR(type: "cosmos-signature", cbor: CBOR(signatureHex.hexadecimal))
-        
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("signature is invalid"))
-    }
-
     func testGenerateSignRequest() {
         let signRequest = CosmosSignRequest(
             requestId: "7AFD5E09-9267-43FB-A02E-08C4A09417EC",

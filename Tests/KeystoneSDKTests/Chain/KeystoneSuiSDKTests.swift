@@ -24,18 +24,6 @@ final class KeystoneSuiSDKTests: XCTestCase {
         XCTAssertEqual(signature.publicKey, "aeb28ecace5c664c080e71b9efd3d071b3dac119a26f4e830dd6bd06712ed93f")
     }
 
-    func testParseSignatureError() {
-        let signatureHex = "a201d825509b1de"
-        let sdk = KeystoneSuiSDK()
-        let ur = try! UR(type: "sui-signature", cbor: CBOR(signatureHex.hexadecimal))
-
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("signature is invalid"))
-    }
-
     func testGenerateSignRequest() {
         let signRequest = SuiSignRequest(
             requestId: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",

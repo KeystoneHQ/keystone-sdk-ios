@@ -9,7 +9,7 @@ import Foundation
 
 public struct ZcashAccounts : Equatable, Codable {
     public var seedFingerprint: String
-    public var keys: Array<ZcashUnifiedAccount>
+    public var accounts: Array<ZcashUnifiedAccount>
 }
 
 public struct ZcashUnifiedAccount: Equatable, Codable {

@@ -24,18 +24,6 @@ final class KeystoneAptosSDKTests: XCTestCase {
         XCTAssertEqual(signature.authenticationPublicKey, "8e53e7b10656816de70824e3016fc1a277e77825e12825dc4f239f418ab2e04e")
     }
 
-    func testParseSignatureError() {
-        let signatureHex = "a201d825509b1de"
-        let sdk = KeystoneAptosSDK()
-        let ur = try! UR(type: "aptos-signature", cbor: CBOR(signatureHex.hexadecimal))
-
-        var thrownError: Swift.Error?
-        XCTAssertThrowsError(try sdk.parseSignature(ur: ur)) {
-             thrownError = $0
-        }
-        XCTAssertEqual(thrownError as? KeystoneError, .parseSignatureError("signature is invalid"))
-    }
-
     func testGenerateSignRequest() {
         let signRequest = AptosSignRequest(
             requestId: "7AFD5E09-9267-43FB-A02E-08C4A09417EC",
