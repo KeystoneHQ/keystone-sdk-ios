@@ -9,21 +9,11 @@ import Foundation
 
 public struct ZcashAccounts : Equatable, Codable {
     public var seedFingerprint: String
-    public var accounts: Array<ZcashUnifiedAccount>
+    public var accounts: Array<ZcashUnifiedFullViewingKey>
 }
 
-public struct ZcashUnifiedAccount: Equatable, Codable {
-    public var transparent: ZcashTransparentAccount?
-    public var orchard: ZcashShieldedAccount
+public struct ZcashUnifiedFullViewingKey: Equatable, Codable {
+    public var ufvk: String
+    public var index: UInt32
     public var name: String?
-}
-
-public struct ZcashTransparentAccount: Equatable, Codable {
-    public var path: String
-    public var xpub: String
-}
-
-public struct ZcashShieldedAccount: Equatable, Codable {
-    public var path: String
-    public var fvk: String
 }

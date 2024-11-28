@@ -79,7 +79,7 @@ final class KeystoneWalletTests: XCTestCase {
     }
     
     func testParseZcashAccounts() {
-        let zcashAccountsCBORHex = "a2015820af5d9c247e91d0cbf603f6f6f49cfc218eabf9a2c1d886ce94fc167d6da7e6640281d9c033a301d9012fa3035821026a2281be37e884fbf0a1d688f76ea5537a74b19230311bc9a82cf43e588d628d045820aa46fcc6aeec9beef1b79b614cdf5093a323964dcf82a86842a82b5ccfd7171e06d90130a10186182cf51885f500f502d9c032a201d90130a101861820f51885f500f502586083ceb48bb24a4debb403c3cc02043f5157ec4f084b8fb359a58f53ab4cd3741b339461f1504081a0765b12b87cac9c4a3baa55b155192d3cfd98a7517b8a59019744b22b89ba0daaa32de9d883a727be7e2ca09446f87efe0e5b29ce98c65f190366363636363636"
+        let zcashAccountsCBORHex = "a2015820af5d9c247e91d0cbf603f6f6f49cfc218eabf9a2c1d886ce94fc167d6da7e6640281d9c033a30179012e7576696577316e32717576666c647330766b72637a32617464737177786e756b726d776e706a68797279356e616b6c777a356d71787437396a38356432776b68367566753978667365717a61686c78396675677339306367717368716c666675356332686567756863387972776734386665647775386465323377767a6779777a7177796639756e6a7030636a6132663539743536397661377435763277716834376739766c736135616334786d65687a6e787a7a6b756b766833306d6b6c7536327065346b6c73797a61706c64637365356837667a37646c336a3634776d6b306679707a72336b6e7261786d30746d7061686a666870636161746e6c6a666c6c6864656b7775737971357063657a73757a61367170736c343633393839767177306b783565683561767176366702000366363636363636"
         
         let keystoneWallet = KeystoneWallet()
         let ur = try! UR(type: "zcash-accounts", cbor: CBOR(zcashAccountsCBORHex.hexadecimal))
@@ -90,12 +90,7 @@ final class KeystoneWalletTests: XCTestCase {
         
         XCTAssertEqual(zcashAccounts.seedFingerprint, "af5d9c247e91d0cbf603f6f6f49cfc218eabf9a2c1d886ce94fc167d6da7e664")
         XCTAssertEqual(account.name, "666666")
-
-        XCTAssertEqual(account.transparent?.path, "44'/133'/0'")
-        XCTAssertEqual(account.transparent?.xpub, "xpub6BemYiVNp19a1pwFbJgXWyJe7gKX2i9yv3xVkvpzHTikk1HfCpmhKqzFCNr5ctbipukfd7AbJFmCB13StCmSrqZHucLbBA4EWt89fiZA83x")
-        
-        XCTAssertEqual(account.orchard.path, "32'/133'/0'")
-        XCTAssertEqual(account.orchard.fvk, "83ceb48bb24a4debb403c3cc02043f5157ec4f084b8fb359a58f53ab4cd3741b339461f1504081a0765b12b87cac9c4a3baa55b155192d3cfd98a7517b8a59019744b22b89ba0daaa32de9d883a727be7e2ca09446f87efe0e5b29ce98c65f19")
-        
+        XCTAssertEqual(account.ufvk, "uview1n2quvflds0vkrcz2atdsqwxnukrmwnpjhyry5naklwz5mqxt79j85d2wkh6ufu9xfseqzahlx9fugs90cgqshqlffu5c2heguhc8yrwg48fedwu8de23wvzgywzqwyf9unjp0cja2f59t569va7t5v2wqh47g9vlsa5ac4xmehznxzzkukvh30mklu62pe4klsyzapldcse5h7fz7dl3j64wmk0fypzr3knraxm0tmpahjfhpcaatnljfllhdekwusyq5pcezsuza6qpsl463989vqw0kx5eh5avqv6g")
+        XCTAssertEqual(account.index, 0)
     }
 }
