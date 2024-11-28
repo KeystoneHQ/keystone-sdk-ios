@@ -1,4 +1,5 @@
 {
+  "originHash" : "7594d3145121aa26482a29fc180d03afeb48a9b4743a13b256642bdb2abe2d06",
   "pins" : [
     {
       "identity" : "bcswiftdcbor",
@@ -55,5 +56,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
