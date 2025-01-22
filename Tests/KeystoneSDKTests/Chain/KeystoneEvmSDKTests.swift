@@ -37,7 +37,7 @@ final class KeystoneEvmSDKTests: XCTestCase {
 
         let qrCode = signRequestEncoder.nextPart()
 
-        XCTAssertEqual(qrCode, "ur:evm-sign-request/1-2/lpadaocfadmocyldbbnehnhdsoosadtpdagdahkpcnechlgygeieoxlyzmcpaeaeaeaeaohkadeobkntadbknyadbkcedliajljkjnjljkdmidhsjtjedmkoehidihjyhsehdmgtjkioguihjtiebgknbkdwihkojnjljkehjkiaeskkkphsjpdykpjtemeniojpeciaetjseeimemeniskpjpeejskkjoimjeeteojtksjektecbgdwihkojnjljkehjkiaeskkkphsjpdykpjtemeniojpeciaetjseeimemeniskpjpeejskkjoimjeeteojtksjekteccycebkathsjyihkojnjljkbgbyehdydydydydydydydydydydydydydydydybgkbbkhkbkgwbkdedlihjyisihjpjninsocsleax")
+        XCTAssertEqual(qrCode, "ur:evm-sign-request/1-3/lpadaxcfadmocyldbbnehnhdlnosadtpdagdahkpcnechlgygeieoxlyzmcpaeaeaeaeaohkadeobkntadbknyadbkcedliajljkjnjljkdmidhsjtjedmkoehidihjyhsehdmgtjkioguihjtiebgknbkdwihkojnjljkehjkiaeskkkphsjpdykpjtemeniojpeciaetjseeimemeniskpjpeejskkjoimjeeteojtksjektecbgdwihkojnjljkehjkiaeskkkphsjpdykpjtemeniojpeciaetkglolsrs")
     }
 
     func testGenerateSignRequestError() {

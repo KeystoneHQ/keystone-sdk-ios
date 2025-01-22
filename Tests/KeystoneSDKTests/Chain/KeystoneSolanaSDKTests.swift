@@ -31,7 +31,7 @@ final class KeystoneSolanaSDKTests: XCTestCase {
 
         let qrCode = solSignRequestEncoder.nextPart()
 
-        XCTAssertEqual(qrCode, "ur:sol-sign-request/onadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdmtadaeadaxsptpfwoewnlbtspkrpaytodmonecolwlhdurzscxsgyninqdflrhbysschcfihgubsmdkocxprderdvorhgslfuttyrtmumkftioengogorlemwpkiuobychvacejpvtaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaebedthhsawnwfneenaajslrmtwdaeiojnimjpwpiypmastadsvlwpvlgwhfhecstdadaoaoaeadbnaoaeaeaeaevyykahaeaeaeaeaxtaaddyoeadlocsdwykcfadykykaeykaeykaocybgbgbgbgahisjkjljziyjzhsjpihamaodssrgsao")
+        XCTAssertEqual(qrCode, "ur:sol-sign-request/1-2/lpadaocstdcydssrgsaohdinonadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdmtadaeadaxsptpfwoewnlbtspkrpaytodmonecolwlhdurzscxsgyninqdflrhbysschcfihgubsmdkocxprderdvorhgslfuttyrtmumkftioengogorlemwpkiuobychvacejpvtaeaeaeaeaeaeaeaeaeaeaeaeaecywlcfts")
     }
 
     func testGenerateSignRequestError() {

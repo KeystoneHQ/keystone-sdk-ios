@@ -64,7 +64,7 @@ public class KeystoneSDK {
     private let wallet: KeystoneWallet = KeystoneWallet()
     private var urDecoder: URDecoder = URDecoder()
 
-    public static var maxFragmentLen = 400;
+    public static var maxFragmentLen = 200;
 
     public init(){}
 
