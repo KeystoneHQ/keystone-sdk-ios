@@ -23,6 +23,6 @@ public class KeystoneZcashSDK: KeystoneBaseSDK {
         let pczt = handle_error(
             get_result: { generate_zcash_pczt($0, pczt_hex.hexEncodedString())}
         )
-        return try super.urStringToEncoder(urString: pczt, ofError: KeystoneError.generatePSBTError)
+        return try super.urStringToEncoder(urString: pczt, ofError: KeystoneError.generatePCZTError)
     }
 }

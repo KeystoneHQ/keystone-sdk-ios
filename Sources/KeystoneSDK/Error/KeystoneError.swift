@@ -14,6 +14,7 @@ public enum KeystoneError: Swift.Error, Equatable {
     case generateSignRequestError(String)
     case parsePSBTError(String)
     case generatePSBTError(String)
+    case generatePCZTError(String)
 }
 
 extension KeystoneError: LocalizedError {
@@ -31,6 +32,8 @@ extension KeystoneError: LocalizedError {
                 return NSLocalizedString("SignRequestError(\(reason))", comment: "SignRequestError")
             case .generatePSBTError(let reason):
                 return NSLocalizedString("PSBTError(\(reason))", comment: "PSBTError")
+            case .generatePCZTError(let reason):
+                return NSLocalizedString("PCZTError(\(reason))", comment: "PCZTError")
         }
     }
 }
