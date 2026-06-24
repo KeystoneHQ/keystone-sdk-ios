@@ -10,6 +10,7 @@ import Foundation
 public struct ZcashAccounts : Equatable, Codable {
     public var seedFingerprint: String
     public var accounts: Array<ZcashUnifiedFullViewingKey>
+    public var deviceVersion: String?
 }
 
 public struct ZcashUnifiedFullViewingKey: Equatable, Codable {
