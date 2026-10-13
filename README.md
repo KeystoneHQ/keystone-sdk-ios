@@ -9,6 +9,68 @@ A swift package of KeystoneSDK. It's based on `KeystoneSDK` which is generated b
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.  
 To add `KeystoneSDK` as a dependency to your Xcode project, select File > Add Packages and enter URL: `https://github.com/KeystoneHQ/keystone-sdk-ios.git`.
 
+## PSBT Extend
+
+Use `generatePSBTExtend` and `parsePSBTExtend` for the `crypto-psbt-extend` UR type. These APIs require the `sdk-0.2.5` binary dependency or later.
+
+### Generate QR fragments
+
+Pass the raw PSBT bytes as `Data`:
+
+```swift
+import Foundation
+import KeystoneSDK
+
+let sdk = KeystoneSDK()
+let psbtData = try Data(contentsOf: psbtFileURL) // URL of your PSBT file
+
+// Litecoin. Display successive fragments as QR codes for the device to scan.
+let encoder = try sdk.btc.generatePSBTExtend(psbt: psbtData, coinId: 2)
+let qrFragment = encoder.nextPart()
+// Call encoder.nextPart() again for each subsequent QR frame.
+
+// Bitcoin: omit coinId, or pass 0. The coin field is omitted from the payload.
+let bitcoinEncoder = try sdk.btc.generatePSBTExtend(psbt: psbtData)
+```
+
+| Coin | `coinId` |
+| --- | --- |
+| Bitcoin | `0` (default) |
+| Litecoin | `2` |
+| Dogecoin | `3` |
+| Dash | `5` |
+| Bitcoin Cash | `145` |
+
+`coinId` is an `Int32`. Unsupported values throw `KeystoneError.generatePSBTError`.
+
+### Parse scanned QR fragments
+
+Reuse the same `KeystoneSDK` instance across frames so the decoder can assemble multipart URs:
+
+```swift
+// Call for each scanned QR string, using the sdk instance above.
+func receivePSBTExtendFragment(_ qrString: String) throws -> PSBTExtend? {
+    let decoded = try sdk.decodeQR(qrCode: qrString)
+    guard let ur = decoded.ur else {
+        return nil // More fragments are needed.
+    }
+
+    defer { sdk.resetQRDecoder() }
+    return try sdk.btc.parsePSBTExtend(ur: ur)
+}
+
+// Inside your scanner callback:
+if let result = try receivePSBTExtendFragment(scannedQRCode) {
+    let psbt: Data = result.psbt
+    let coinId: Int32? = result.coinId // nil means Bitcoin.
+    // Pass psbt and coinId to your transaction handling code.
+}
+```
+
+If you already have a decoded `UR`, call `sdk.btc.parsePSBTExtend(ur: ur)` directly. A different UR type throws `QRCodeError.unexpectedQRCode`; an invalid Extend payload throws `KeystoneError.parsePSBTError`.
+
+For ordinary `crypto-psbt` URs, continue using `generatePSBT(psbt:)` and `parsePSBT(ur:)`.
+
 ## How to update the binary library `URRegistryFFI`
 
 1. Install Rust

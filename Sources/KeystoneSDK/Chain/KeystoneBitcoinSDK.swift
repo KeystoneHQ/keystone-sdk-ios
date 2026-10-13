@@ -23,7 +23,7 @@ public class KeystoneBitcoinSDK: KeystoneBaseSDK {
         return PSBTExtend(psbt: payload.psbt.hexadecimal, coinId: payload.coinId)
     }
 
-    /// coinId: 0 = Bitcoin (omitted), 2 = LTC, 3 = DOGE, 4 = DASH, 145 = BCH.
+    /// coinId: 0 = Bitcoin (omitted), 2 = LTC, 3 = DOGE, 5 = DASH, 145 = BCH.
     public func generatePSBTExtend(psbt: Data, coinId: Int32 = 0) throws -> UREncoder {
         let result = handle_error(
             get_result: { generate_crypto_psbt_extend($0, psbt.hexEncodedString(), coinId) }

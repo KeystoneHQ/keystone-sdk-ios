@@ -13,17 +13,18 @@ import URKit
 
 final class KeystoneBitcoinSDKTests: XCTestCase {
     func testPSBTExtendKnownVectors() throws {
+        // Keep vectors above URKit's default 10-byte minimum fragment length.
         let sdk = KeystoneBitcoinSDK()
-        for (coinId, cbor) in [(Int32(0), "a10142aabb"), (2, "a20142aabb0202"), (3, "a20142aabb0203"), (4, "a20142aabb0204"), (145, "a20142aabb021891")] {
+        for (coinId, cbor) in [(Int32(0), "a1014aaabbccddeeff00112233"), (2, "a2014aaabbccddeeff001122330202"), (3, "a2014aaabbccddeeff001122330203"), (5, "a2014aaabbccddeeff001122330205"), (145, "a2014aaabbccddeeff00112233021891")] {
             let ur = try UR(type: "crypto-psbt-extend", cbor: CBOR(cbor.hexadecimal))
             let parsed = try sdk.parsePSBTExtend(ur: ur)
-            XCTAssertEqual(parsed.psbt, "aabb".hexadecimal)
+            XCTAssertEqual(parsed.psbt, "aabbccddeeff00112233".hexadecimal)
             XCTAssertEqual(parsed.coinId, coinId == 0 ? nil : coinId)
             let encoder = try sdk.generatePSBTExtend(psbt: parsed.psbt, coinId: coinId)
             XCTAssertEqual(encoder.nextPart(), UREncoder(ur, maxFragmentLen: KeystoneSDK.maxFragmentLen).nextPart())
         }
-        let expected = try UR(type: "crypto-psbt-extend", cbor: CBOR("a10142aabb".hexadecimal))
-        XCTAssertEqual(try sdk.generatePSBTExtend(psbt: "aabb".hexadecimal).nextPart(), UREncoder(expected, maxFragmentLen: KeystoneSDK.maxFragmentLen).nextPart())
+        let expected = try UR(type: "crypto-psbt-extend", cbor: CBOR("a1014aaabbccddeeff00112233".hexadecimal))
+        XCTAssertEqual(try sdk.generatePSBTExtend(psbt: "aabbccddeeff00112233".hexadecimal).nextPart(), UREncoder(expected, maxFragmentLen: KeystoneSDK.maxFragmentLen).nextPart())
     }
 
     func testPSBTExtendInvalidInputs() throws {
@@ -32,13 +33,13 @@ final class KeystoneBitcoinSDKTests: XCTestCase {
         XCTAssertThrowsError(try sdk.parsePSBTExtend(ur: wrongType)) {
             XCTAssertEqual($0 as? QRCodeError, .unexpectedQRCode)
         }
-        for cbor in ["42aabb", "a20142aabb0201"] {
+        for cbor in ["42aabb", "a20142aabb0201", "a20142aabb0204"] {
             let ur = try UR(type: "crypto-psbt-extend", cbor: CBOR(cbor.hexadecimal))
             XCTAssertThrowsError(try sdk.parsePSBTExtend(ur: ur)) {
                 XCTAssertEqual($0 as? KeystoneError, .parsePSBTError("PSBT is invalid"))
             }
         }
-        for coinId: Int32 in [-1, 1, 5, Int32.max] {
+        for coinId: Int32 in [-1, 1, 4, Int32.max] {
             XCTAssertThrowsError(try sdk.generatePSBTExtend(psbt: "aabb".hexadecimal, coinId: coinId)) {
                 XCTAssertEqual($0 as? KeystoneError, .generatePSBTError("invalid coin_id"))
             }
