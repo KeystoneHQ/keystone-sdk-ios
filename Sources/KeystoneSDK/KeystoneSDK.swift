@@ -32,20 +32,10 @@ public class KeystoneSDK {
     public lazy var evm: KeystoneEvmSDK = {
        return KeystoneEvmSDK()
     }()
-    public lazy var tron: KeystoneTronSDK = {
-       return KeystoneTronSDK()
-    }()
+    public lazy var tronNative: KeystoneTronNativeSDK = { KeystoneTronNativeSDK() }()
+
     public lazy var aptos: KeystoneAptosSDK = {
        return KeystoneAptosSDK()
-    }()
-    public lazy var ltc: KeystoneLitecoinSDK = {
-        return KeystoneLitecoinSDK()
-    }()
-    public lazy var dash: KeystoneDashSDK = {
-        return KeystoneDashSDK()
-    }()
-    public lazy var bch: KeystoneBchSDK = {
-        return KeystoneBchSDK()
     }()
     public lazy var near: KeystoneNearSDK = {
         return KeystoneNearSDK()
